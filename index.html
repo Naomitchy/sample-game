@@ -161,6 +161,7 @@
             width: 100%;
             height: 100%;
             z-index: 0;
+            touch-action: none; /* スマホでの操作をCanvasに伝えるために必要 */
         }
 
         .hero-content { position: relative; z-index: 1; text-align: center; width: 100%; pointer-events: none; }
@@ -455,7 +456,7 @@
                 <summary>継続セッション</summary>
                 <div class="details-content">
                     <p class="service-target">「社会的な役割（仕事・家庭）を全うしながらも、自分の真ん中を置き去りにしたくない方へ」</p>
-                    <p>▶ 月2回／60分 ×6ヶ月<br>導入セッションで明らかにした「大切にしたいこと」を、日常の選択や行動に変えていくための継続プログラムです。</p>
+                    <p>▶ 月2回／60分 ×6ヶ月<br>導入セッションで明らかにした「大切にしたいこと」を, 日常の選択や行動に変えていくための継続プログラムです。</p>
                     <div class="price-box">
                         一括：244,000円（税込）<br>
                         月額：42,000円（税込）×6ヶ月
@@ -469,7 +470,7 @@
                 <summary>Coaching Circle（コーチング・サークル）</summary>
                 <div class="details-content">
                     <p class="service-target">「他者の響き（声）を鏡にして、自分を深く知りたい方へ」</p>
-                    <p>▶ 少人数制（4〜9名）／月1回・120分 ×6ヶ月<br>複数名でのグループセッションです。仲間の存在や問いがきっかけとなり、思いがけず自分のテーマが動き出すことがあります。</p>
+                    <p>▶ 少人数制（4〜9名）／月1回・120分 ×6ヶ月<br>複数名でのグループセッションです。仲間の存在や問いがきっかけとなり, 思いがけず自分のテーマが動き出すことがあります。</p>
                     <div class="price-box">
                         一括：99,000円（税込）<br>
                         月額：18,150円（税込）×6ヶ月
@@ -645,12 +646,11 @@
         const closeBtn = document.getElementById('close-privacy');
         const privacyCheck = document.getElementById('privacy-check');
         const submitBtn = document.getElementById('submit-btn');
-        const openModal = () => { modal.classList.add('is-visible'); document.body.style.overflow = 'hidden'; };
-        const closeModal = () => { modal.classList.remove('is-visible'); document.body.style.overflow = 'auto'; };
-        openBtn.onclick = openModal; closeBtn.onclick = closeModal; window.onclick = (e) => { if (e.target == modal) closeModal(); };
+        openBtn.onclick = () => { modal.classList.add('is-visible'); document.body.style.overflow = 'hidden'; };
+        closeBtn.onclick = () => { modal.classList.remove('is-visible'); document.body.style.overflow = 'auto'; };
         privacyCheck.addEventListener('change', function() { submitBtn.disabled = !this.checked; });
 
-        // --- Designing Emotion: Abstract Rain & Ripple Animation ---
+        // --- Abstract Rain & Ripple Animation (Updated for Touch) ---
         const canvas = document.getElementById('rainCanvas');
         const ctx = canvas.getContext('2d');
         let rainLines = [];
@@ -667,16 +667,16 @@
             init() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.speed = Math.random() * 0.4 + 0.15; // 少しだけ速く
+                this.speed = Math.random() * 0.4 + 0.15; 
                 this.len = Math.random() * 35 + 20;
                 this.opacity = 0;
-                this.maxOpacity = Math.random() * 0.15 + 0.05; // 視認性を向上
-                this.fadeSpeed = 0.005; // 少しだけ速く
+                this.maxOpacity = Math.random() * 0.15 + 0.05; 
+                this.fadeSpeed = 0.005; 
                 this.state = 'fadeIn'; 
             }
             update() {
                 this.y += this.speed;
-                this.x += mouseSpeed * 0.015; // なびきを少し強調
+                this.x += mouseSpeed * 0.015; 
                 if (this.state === 'fadeIn') {
                     this.opacity += this.fadeSpeed;
                     if (this.opacity >= this.maxOpacity) this.state = 'fadeOut';
@@ -696,13 +696,13 @@
         }
 
         class Ripple {
-            constructor(x, y, isMouse = false) {
+            constructor(x, y, isInteractive = false) {
                 this.x = x || Math.random() * canvas.width;
                 this.y = y || Math.random() * canvas.height;
                 this.r = 0;
-                this.maxR = isMouse ? Math.random() * 35 + 15 : Math.random() * 110 + 70; 
-                this.opacity = isMouse ? 0.3 : 0.18; 
-                this.speed = isMouse ? 1.2 : 0.5; // 広がる速度をわずかに向上
+                this.maxR = isInteractive ? Math.random() * 35 + 15 : Math.random() * 110 + 70; 
+                this.opacity = isInteractive ? 0.3 : 0.18; 
+                this.speed = isInteractive ? 1.2 : 0.5; 
             }
             update() {
                 this.r += this.speed;
@@ -719,7 +719,7 @@
         }
 
         function setup() {
-            rainLines = Array.from({ length: 35 }, () => new RainLine()); // 数を35個に調整
+            rainLines = Array.from({ length: 35 }, () => new RainLine()); 
             ripples = [];
         }
 
@@ -731,26 +731,37 @@
                 if (alive) ripple.draw();
                 return alive;
             });
-
-            // 波紋の頻度を向上
+            // スマホでも気配を感じやすくするため, ランダム波紋の頻度をわずかに調整
             if (Math.random() < 0.015) ripples.push(new Ripple());
             mouseSpeed *= 0.95;
             requestAnimationFrame(animate);
         }
 
+        // Mouse Event
         window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+            mouseX = e.clientX; mouseY = e.clientY;
             mouseSpeed = mouseX - lastMouseX;
             lastMouseX = mouseX;
-            // マウス波紋の反応を向上
             if (Math.random() < 0.15) ripples.push(new Ripple(mouseX, mouseY, true));
         });
+
+        // Touch Event (スマホ向け追加)
+        window.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            ripples.push(new Ripple(touch.clientX, touch.clientY, true));
+        }, {passive: true});
+
+        window.addEventListener('touchmove', (e) => {
+            const touch = e.touches[0];
+            if (Math.random() < 0.2) { // 動きに合わせて連続的に波紋を出す
+                ripples.push(new Ripple(touch.clientX, touch.clientY, true));
+            }
+        }, {passive: true});
 
         window.addEventListener('resize', () => { resize(); setup(); });
         resize(); setup(); animate();
 
-        // --- Voice Slider Logic ---
+        // --- Voice Slider ---
         const slider = document.getElementById('voice-slider');
         const nextBtn = document.getElementById('slide-next');
         const prevBtn = document.getElementById('slide-prev');
