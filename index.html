@@ -84,6 +84,7 @@
             text-decoration: none;
             color: var(--text);
             font-weight: 300;
+            white-space: nowrap;
         }
 
         .nav-desktop { display: flex; gap: 30px; }
@@ -153,7 +154,6 @@
             position: relative;
             overflow: hidden;
         }
-
         #rainCanvas {
             position: absolute;
             top: 0;
@@ -163,7 +163,6 @@
             z-index: 0;
             touch-action: none;
         }
-
         .hero-content { position: relative; z-index: 1; text-align: center; width: 100%; pointer-events: none; }
         
         .hero-copy-part { 
@@ -185,7 +184,6 @@
             font-weight: 300;
             font-style: italic;
         }
-        .hero-sub-copy span { display: inline-block; white-space: nowrap; }
 
         /* --- News --- */
         #news { padding: 100px 0 60px; }
@@ -199,7 +197,6 @@
             padding-bottom: 10px; 
             width: fit-content; 
         }
-        
         .news-item { 
             display: flex; 
             align-items: flex-start; 
@@ -210,17 +207,8 @@
             font-family: 'Zen Kaku Gothic New', sans-serif; 
             font-size: 0.9rem; 
         }
-        .news-item span:first-child { 
-            flex: 0 0 120px; 
-            color: var(--accent);
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-        }
-        .news-item span:last-child { 
-            flex: 1; 
-            line-height: 1.8;
-            color: var(--sub-text);
-        }
+        .news-item span:first-child { flex: 0 0 120px; color: var(--accent); font-size: 0.8rem; letter-spacing: 0.05em; }
+        .news-item span:last-child { flex: 1; line-height: 1.8; color: var(--sub-text); }
 
         /* --- Message --- */
         .message { padding: 150px 0; text-align: center; background: #fafafa; }
@@ -230,9 +218,12 @@
             margin-bottom: 60px;
             color: var(--text);
             font-weight: 500;
-            line-height: 1.8;
+            line-height: 2.0; /* 行間を少し広げて読みやすく */
             text-align: center;
         }
+        /* 泣き別れ防止用の汎用クラス */
+        .keep-together { display: inline-block; white-space: nowrap; }
+
         .message-p { max-width: 800px; margin: 0 auto; font-size: 1.05rem; line-height: 2.8; padding: 0 20px; text-align: left; display: inline-block; }
 
         /* --- About --- */
@@ -275,27 +266,9 @@
         .slider-btn.hidden { opacity: 0; visibility: hidden; }
 
         /* --- Contact --- */
-        #contact { 
-            position: relative;
-            padding: 120px 0 150px; 
-            background: #ffffff;
-            overflow: hidden;
-        }
-        #contactCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
-        #contact .container {
-            position: relative;
-            z-index: 1;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        #contact { position: relative; padding: 120px 0 150px; background: #ffffff; overflow: hidden; }
+        #contactCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+        #contact .container { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
         .form-group { margin-bottom: 40px; }
         label.form-label { display: block; font-size: 0.85rem; margin-bottom: 12px; color: var(--accent); font-weight: 500; }
         input[type="text"], input[type="email"], textarea { width: 100%; padding: 18px; border: 1px solid var(--line); background: rgba(250, 250, 250, 0.8); backdrop-filter: blur(5px); font-family: inherit; font-size: 1rem; }
@@ -310,69 +283,17 @@
         .sns-item:hover { color: var(--accent); }
 
         /* --- Footer --- */
-        footer { 
-            padding: 100px 0 60px; 
-            text-align: center; 
-            border-top: 1px solid var(--line); 
-            background-color: #fff;
-        }
-        .footer-logo {
-            display: block;
-            margin-bottom: 30px;
-        }
-        .footer-nav {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-        .footer-nav a {
-            text-decoration: none;
-            color: var(--sub-text);
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            font-family: 'Cormorant Garamond', serif;
-            transition: 0.3s;
-        }
+        footer { padding: 100px 0 60px; text-align: center; border-top: 1px solid var(--line); background-color: #fff; }
+        .footer-logo { display: block; margin-bottom: 30px; }
+        .footer-nav { display: flex; justify-content: center; gap: 25px; margin-bottom: 40px; flex-wrap: wrap; }
+        .footer-nav a { text-decoration: none; color: var(--sub-text); font-size: 0.8rem; letter-spacing: 0.1em; font-family: 'Cormorant Garamond', serif; transition: 0.3s; }
         .footer-nav a:hover { color: var(--accent); }
-        .copyright {
-            font-size: 0.7rem; 
-            color: #999; 
-            font-family: 'Cormorant Garamond', serif;
-        }
+        .copyright { font-size: 0.7rem; color: #999; font-family: 'Cormorant Garamond', serif; }
 
         /* --- Modal --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 252, 248, 0.85); 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            backdrop-filter: blur(8px);
-            opacity: 0; 
-            pointer-events: none; 
-            transition: opacity 0.8s ease; 
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 252, 248, 0.85); display: flex; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity 0.8s ease; }
         .modal-overlay.is-visible { opacity: 1; pointer-events: auto; }
-        .modal-content {
-            background: white;
-            width: 90%;
-            max-width: 640px;
-            max-height: 80vh;
-            padding: 60px 50px;
-            position: relative;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(142, 126, 106, 0.1);
-            border-radius: 4px;
-            transform: translateY(30px);
-            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
+        .modal-content { background: white; width: 90%; max-width: 640px; max-height: 80vh; padding: 60px 50px; position: relative; overflow-y: auto; box-shadow: 0 20px 60px rgba(142, 126, 106, 0.1); border-radius: 4px; transform: translateY(30px); transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .modal-overlay.is-visible .modal-content { transform: translateY(0); }
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--line); padding-bottom: 15px; }
         .modal-header h3 { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.2em; font-weight: 300; color: var(--accent); font-size: 1.4rem; }
@@ -383,18 +304,38 @@
 
         /* --- Mobile Responsive --- */
         @media (max-width: 850px) {
+            /* 日本語の改行ルールを最適化 */
+            body { 
+                word-break: keep-all; /* 単語の途中での改行を防ぐ */
+                overflow-wrap: anywhere; 
+            }
             .container { padding: 0 24px !important; }
             header.site-header { padding: 0 20px; }
-            .logo { font-size: 1.05rem; letter-spacing: 0.15em; white-space: nowrap; }
+            .logo { font-size: 1.0rem; letter-spacing: 0.15em; }
             .nav-desktop { display: none; }
             .nav-toggle { display: flex; }
-            .hero-copy-part { font-size: 1.6rem; letter-spacing: 0.2em; white-space: normal; max-width: 90%; margin: 0 auto; }
-            .hero-sub-copy { font-size: 1rem; padding: 0 15px; }
+            
+            .hero-copy-part { 
+                font-size: 1.6rem; 
+                letter-spacing: 0.2em; 
+                white-space: normal; /* 折り返しを許可 */
+                max-width: 90%; 
+                margin: 0 auto; 
+                word-break: keep-all;
+            }
+            .hero-sub-copy { font-size: 0.95rem; padding: 0 15px; line-height: 1.6; }
+            .hero-sub-copy span { white-space: normal; display: inline; }
+
+            /* Newsの泣き別れ防止 */
             #news { padding: 60px 0 40px; }
             .news-item { flex-direction: column; gap: 0; padding: 12px 0; line-height: 1.4; }
             .news-item span:first-child { flex: none; width: auto; font-size: 0.75rem; margin-bottom: 4px; opacity: 0.8; }
-            .news-item span:last-child { flex: none; font-size: 0.85rem; line-height: 1.6; }
-            .message-lead { font-size: 1.15rem; margin-bottom: 40px; padding: 0 20px; }
+            .news-item span:last-child { flex: none; font-size: 0.85rem; line-height: 1.6; word-break: break-all; }
+
+            /* Messageの泣き別れ防止 */
+            .message-lead { font-size: 1.15rem; margin-bottom: 40px; padding: 0 20px; line-height: 1.8; }
+            .message-p { line-height: 2.2; font-size: 0.95rem; }
+
             .about-layout { flex-direction: column; gap: 30px; }
             .about-image-wrapper { width: 100%; }
             .profile-head { flex-direction: column; align-items: flex-start; gap: 5px; }
@@ -432,10 +373,10 @@
     <section class="hero-section">
         <canvas id="rainCanvas"></canvas>
         <div class="hero-content">
-            <span class="hero-copy-part fade">おかえりなさい、</span>
-            <span class="hero-copy-part fade fade-delay">あなたの命の音。</span>
+            <span class="hero-copy-part fade"><span class="keep-together">おかえりなさい、</span></span>
+            <span class="hero-copy-part fade fade-delay"><span class="keep-together">あなたの命の音。</span></span>
             <p class="hero-sub-copy fade fade-delay-2">
-                <span>The overture to your</span> <span>authentic life begins here.</span>
+                The overture to your authentic life begins here.
             </p>
         </div>
     </section>
@@ -449,7 +390,8 @@
     <section class="message">
         <div class="container" style="text-align: center;">
             <p class="message-lead fade">
-                あなたの内側にあるもの。<br>いつも、なきものにしていませんか？
+                <span class="keep-together">あなたの内側にあるもの。</span><br>
+                <span class="keep-together">いつも、なきものに</span><span class="keep-together">していませんか？</span>
             </p>
             <div class="message-p fade">
 				他の誰でもないあなただけが聴くことのできる、大切な音。<br><br>
@@ -519,7 +461,7 @@
                 <summary>継続セッション</summary>
                 <div class="details-content">
                     <p class="service-target">「社会的な役割（仕事・家庭）を全うしながらも、自分の真ん中を置き去りにしたくない方へ」</p>
-                    <p>▶ 月2回／60分 ×6ヶ月<br>導入セッションで明らかにした「大切にしたいこと」を, 日常の選択や行動に変えていくための継続プログラムです。</p>
+                    <p>▶ 月2回／60分 ×6ヶ月<br>導入セッションで明らかにした「大切にしたいこと」を、日常の選択や行動に変えていくための継続プログラムです。</p>
                     <div class="price-box">
                         一括：244,000円（税込）<br>
                         月額：42,000円（税込）×6ヶ月
@@ -533,7 +475,7 @@
                 <summary>Coaching Circle（コーチング・サークル）</summary>
                 <div class="details-content">
                     <p class="service-target">「他者の響き（声）を鏡にして、自分を深く知りたい方へ」</p>
-                    <p>▶ 少人数制（4〜9名）／月1回・120分 ×6ヶ月<br>複数名でのグループセッションです。仲間の存在や問いがきっかけとなり, 思いがけず自分のテーマが動き出すことがあります。</p>
+                    <p>▶ 少人数制（4〜9名）／月1回・120分 ×6ヶ月<br>複数名でのグループセッションです。仲間の存在や問いがきっかけとなり、思いがけず自分のテーマが動き出すことがあります。</p>
                     <div class="price-box">
                         一括：99,000円（税込）<br>
                         月額：18,150円（税込）×6ヶ月
@@ -544,7 +486,7 @@
             <details>
                 <summary>法人・団体向けの取り組み</summary>
                 <div class="details-content">
-                    <p>▶ 法人・団体向けのコーチングや研修等, ご相談ください！<br>AIの時代に, チームや個人が個性を大切にしながら働ける組織づくりを, 対話を通じてサポートしています。社内ワークショップやプロジェクト伴走などもご相談ください。まずはお気軽にお問い合わせください。</p>
+                    <p>▶ 法人・団体向けのコーチングや研修等、ご相談ください！<br>AIの時代に、チームや個人が個性を大切にしながら働ける組織づくりを、対話を通じてサポートしています。社内ワークショップやプロジェクト伴走などもご相談ください。まずはお気軽にお問い合わせください。</p>
                     <a href="#contact" class="service-cta">法人向けサービスを相談する</a>
                 </div>
             </details>
@@ -557,7 +499,7 @@
                     <p style="margin-bottom: 20px;">3ヶ月で見つける わたしのバイオリズムWS（9月〜11月）。開催レポートや参加者の気づきを順次公開予定です。※次回開催に向けて継続参加希望をヒアリング予定。</p>
                     <div class="status-tag">開催予定</div>
                     <p>サンガ：同じテーマを持つ人がゆるやかにつながり合えるコミュニティ。<br>
-                    読書会：本をきっかけに語り合い, 気づきを共有する場。</p>
+                    読書会：本をきっかけに語り合い、気づきを共有する場。</p>
                     <a href="#contact" class="service-cta">ワークショップのお問い合わせ</a>
                 </div>
             </details>
@@ -726,7 +668,7 @@
         closeBtn.onclick = () => { modal.classList.remove('is-visible'); document.body.style.overflow = 'auto'; };
         privacyCheck.addEventListener('change', function() { submitBtn.disabled = !this.checked; });
 
-        // --- Rain Animation Class ---
+        // --- Abstract Rain System ---
         class RainSystem {
             constructor(canvasId, options = {}) {
                 this.canvas = document.getElementById(canvasId);
@@ -740,10 +682,8 @@
                 this.density = options.density || 35;
                 this.maxOpacity = options.maxOpacity || 0.15;
                 this.isInteractive = options.isInteractive !== false;
-
                 this.init();
             }
-
             init() {
                 this.resize();
                 this.rainLines = Array.from({ length: this.density }, () => this.createRainLine());
@@ -754,12 +694,7 @@
                     window.addEventListener('touchmove', (e) => this.handleTouchMove(e), {passive: true});
                 }
             }
-
-            resize() {
-                this.canvas.width = this.canvas.offsetWidth;
-                this.canvas.height = this.canvas.offsetHeight;
-            }
-
+            resize() { this.canvas.width = this.canvas.offsetWidth; this.canvas.height = this.canvas.offsetHeight; }
             createRainLine() {
                 return {
                     x: Math.random() * this.canvas.width,
@@ -772,7 +707,6 @@
                     state: 'fadeIn'
                 };
             }
-
             createRipple(x, y, isInteractive = false) {
                 return {
                     x: x || Math.random() * this.canvas.width,
@@ -783,7 +717,6 @@
                     speed: isInteractive ? 1.2 : 0.5
                 };
             }
-
             handleMouseMove(e) {
                 const rect = this.canvas.getBoundingClientRect();
                 this.mouseX = e.clientX - rect.left;
@@ -792,22 +725,18 @@
                 this.lastMouseX = this.mouseX;
                 if (Math.random() < 0.15) this.ripples.push(this.createRipple(this.mouseX, this.mouseY, true));
             }
-
             handleTouch(e) {
                 const rect = this.canvas.getBoundingClientRect();
                 const touch = e.touches[0];
                 this.ripples.push(this.createRipple(touch.clientX - rect.left, touch.clientY - rect.top, true));
             }
-
             handleTouchMove(e) {
                 const rect = this.canvas.getBoundingClientRect();
                 const touch = e.touches[0];
                 if (Math.random() < 0.2) this.ripples.push(this.createRipple(touch.clientX - rect.left, touch.clientY - rect.top, true));
             }
-
             animate() {
                 this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
                 this.rainLines.forEach(line => {
                     line.y += line.speed;
                     line.x += this.mouseSpeed * 0.015;
@@ -816,10 +745,7 @@
                         if (line.opacity >= line.targetOpacity) line.state = 'fadeOut';
                     } else {
                         line.opacity -= line.fadeSpeed;
-                        if (line.opacity <= 0) {
-                            Object.assign(line, this.createRainLine());
-                            line.opacity = 0;
-                        }
+                        if (line.opacity <= 0) { Object.assign(line, this.createRainLine()); line.opacity = 0; }
                     }
                     this.ctx.beginPath();
                     this.ctx.strokeStyle = `rgba(142, 126, 106, ${line.opacity})`;
@@ -828,7 +754,6 @@
                     this.ctx.lineTo(line.x, line.y + line.len);
                     this.ctx.stroke();
                 });
-
                 this.ripples = this.ripples.filter(ripple => {
                     ripple.r += ripple.speed;
                     ripple.opacity -= 0.0025;
@@ -842,17 +767,13 @@
                     }
                     return false;
                 });
-
                 if (Math.random() < 0.015) this.ripples.push(this.createRipple());
                 this.mouseSpeed *= 0.95;
                 requestAnimationFrame(() => this.animate());
             }
         }
-
-        // Initialize Rain Systems
         const heroRain = new RainSystem('rainCanvas', { density: 35, maxOpacity: 0.15 });
         heroRain.animate();
-
         const contactRain = new RainSystem('contactCanvas', { density: 15, maxOpacity: 0.08, isInteractive: false });
         contactRain.animate();
 
