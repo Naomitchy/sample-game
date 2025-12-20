@@ -29,7 +29,6 @@
             --sub-text: #666666;
             --accent: #8e7e6a;
             --line: #eeeeee;
-            --light-color: rgba(255, 250, 240, 0.6);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -144,7 +143,7 @@
             letter-spacing: 0.2em;
         }
 
-        /* --- Hero --- */
+        /* --- Hero with Rain & Ripple --- */
         .hero-section {
             height: 100vh;
             display: flex;
@@ -155,34 +154,20 @@
             overflow: hidden;
         }
 
-        .hero-light-effect {
+        #rainCanvas {
             position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--light-color) 0%, rgba(255,255,255,0) 70%);
-            mix-blend-mode: multiply;
-            filter: blur(60px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
-            opacity: 0;
-            animation: lightMove 25s infinite alternate ease-in-out, lightFade 8s infinite alternate ease-in-out;
-        }
-        .light-1 { width: 80vw; height: 80vw; top: -20%; left: -20%; }
-        .light-2 { width: 70vw; height: 70vw; bottom: -10%; right: -10%; animation-delay: 2s; }
-
-        @keyframes lightMove {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(15%, 10%) scale(1.1); }
-        }
-        @keyframes lightFade {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 0.7; }
         }
 
-        .hero-content { position: relative; z-index: 1; text-align: center; width: 100%; }
+        .hero-content { position: relative; z-index: 1; text-align: center; width: 100%; pointer-events: none; }
         
-        /* 【ヒーローエリア再調整】PCサイズを適度に抑制 */
         .hero-copy-part { 
             display: block; 
-            font-size: clamp(1.6rem, 4vw, 2.6rem); /* 最大サイズを控えめに調整 */
+            font-size: clamp(1.6rem, 4vw, 2.6rem); 
             letter-spacing: 0.35em; 
             font-weight: 400; 
             line-height: 1.6;
@@ -294,7 +279,7 @@
         .sns-item { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--sub-text); text-decoration: none; letter-spacing: 0.2em; font-size: 0.9rem; transition: 0.3s; }
         .sns-item:hover { color: var(--accent); }
 
-        /* --- Modal (ふわっと表示) --- */
+        /* --- Modal --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -311,10 +296,7 @@
             pointer-events: none; 
             transition: opacity 0.8s ease; 
         }
-        .modal-overlay.is-visible {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .modal-overlay.is-visible { opacity: 1; pointer-events: auto; }
         .modal-content {
             background: white;
             width: 90%;
@@ -328,32 +310,10 @@
             transform: translateY(30px);
             transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        .modal-overlay.is-visible .modal-content {
-            transform: translateY(0);
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            border-bottom: 1px solid var(--line);
-            padding-bottom: 15px;
-        }
-        .modal-header h3 {
-            font-family: 'Cormorant Garamond', serif;
-            letter-spacing: 0.2em;
-            font-weight: 300;
-            color: var(--accent);
-            font-size: 1.4rem;
-        }
-        .modal-close {
-            font-size: 1.8rem;
-            cursor: pointer;
-            line-height: 1;
-            color: var(--sub-text);
-            font-weight: 200;
-            transition: 0.4s;
-        }
+        .modal-overlay.is-visible .modal-content { transform: translateY(0); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; border-bottom: 1px solid var(--line); padding-bottom: 15px; }
+        .modal-header h3 { font-family: 'Cormorant Garamond', serif; letter-spacing: 0.2em; font-weight: 300; color: var(--accent); font-size: 1.4rem; }
+        .modal-close { font-size: 1.8rem; cursor: pointer; line-height: 1; color: var(--sub-text); font-weight: 200; transition: 0.4s; }
         .modal-close:hover { color: var(--accent); transform: rotate(90deg); }
         .modal-body { font-size: 0.85rem; line-height: 2; color: var(--sub-text); }
         .modal-body h4 { margin: 30px 0 10px; color: var(--text); font-weight: 500; }
@@ -364,47 +324,15 @@
         @media (max-width: 850px) {
             .container { padding: 0 24px !important; }
             header.site-header { padding: 0 20px; }
-            
-            .logo { 
-                font-size: 1.05rem; 
-                letter-spacing: 0.15em; 
-                white-space: nowrap; 
-            }
-
+            .logo { font-size: 1.05rem; letter-spacing: 0.15em; white-space: nowrap; }
             .nav-desktop { display: none; }
             .nav-toggle { display: flex; }
-
-            /* ヒーローエリア・スマホ調整（ユーザー様お気に入りのバランスを維持） */
-            .hero-copy-part { 
-                font-size: 1.6rem; 
-                letter-spacing: 0.2em; 
-                white-space: normal; 
-                max-width: 90%; 
-                margin: 0 auto; 
-            }
+            .hero-copy-part { font-size: 1.6rem; letter-spacing: 0.2em; white-space: normal; max-width: 90%; margin: 0 auto; }
             .hero-sub-copy { font-size: 1rem; padding: 0 15px; }
-
-            /* News項目の巨大な空白を除去 */
             #news { padding: 60px 0 40px; }
-            .news-item { 
-                flex-direction: column; 
-                gap: 0;             
-                padding: 12px 0;    
-                line-height: 1.4;   
-            }
-            .news-item span:first-child { 
-                flex: none;         
-                width: auto; 
-                font-size: 0.75rem; 
-                margin-bottom: 4px; 
-                opacity: 0.8;
-            }
-            .news-item span:last-child { 
-                flex: none;
-                font-size: 0.85rem;
-                line-height: 1.6;
-            }
-
+            .news-item { flex-direction: column; gap: 0; padding: 12px 0; line-height: 1.4; }
+            .news-item span:first-child { flex: none; width: auto; font-size: 0.75rem; margin-bottom: 4px; opacity: 0.8; }
+            .news-item span:last-child { flex: none; font-size: 0.85rem; line-height: 1.6; }
             .about-layout { flex-direction: column; gap: 30px; }
             .about-image-wrapper { width: 100%; }
             .profile-head { flex-direction: column; align-items: flex-start; gap: 5px; }
@@ -440,8 +368,7 @@
     </div>
 
     <section class="hero-section">
-        <div class="hero-light-effect light-1"></div>
-        <div class="hero-light-effect light-2"></div>
+        <canvas id="rainCanvas"></canvas>
         <div class="hero-content">
             <span class="hero-copy-part fade">おかえりなさい、</span>
             <span class="hero-copy-part fade fade-delay">あなたの命の音。</span>
@@ -640,7 +567,6 @@
         <form action="#">
             <div class="form-group"><label class="form-label">お名前*</label><input type="text" required></div>
             <div class="form-group"><label class="form-label">メールアドレス*</label><input type="email" required></div>
-            
             <div class="form-group">
                 <label class="form-label">お問い合わせ内容をお選びください（複数選択可）*</label>
                 <div class="checkbox-group">
@@ -652,9 +578,7 @@
                     <label><input type="checkbox" name="subject" value="other"> その他（メッセージ欄にご記入ください）</label>
                 </div>
             </div>
-
             <div class="form-group"><label class="form-label">メッセージ</label><textarea rows="6"></textarea></div>
-
             <div class="form-group">
                 <div class="checkbox-group">
                     <label style="font-size: 0.85rem;">
@@ -665,7 +589,6 @@
             </div>
             <button type="submit" id="submit-btn" class="btn-submit" disabled>Send Message</button>
         </form>
-
         <div class="sns-links-footer">
             <a href="https://www.instagram.com/ogusuchihiro_coach/" class="sns-item" target="_blank" rel="noopener noreferrer">Instagram</a>
             <a href="https://note.com/18_lug" class="sns-item" target="_blank" rel="noopener noreferrer">note</a>
@@ -700,142 +623,168 @@
         </div>
     </div>
 
-    <footer>
-        &copy; 2025 CHIHIRO OGUSU
-    </footer>
+    <footer>&copy; 2025 CHIHIRO OGUSU</footer>
 
     <script>
-        // Intersection Observer for fade animations
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.fade').forEach(el => observer.observe(el));
 
-        // Mobile Navigation Toggle
         const navToggle = document.getElementById('nav-toggle');
         const navMobile = document.getElementById('nav-mobile');
-        
         navToggle.addEventListener('click', () => {
             navToggle.classList.toggle('active');
             navMobile.classList.toggle('active');
-            if(navMobile.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
+            document.body.style.overflow = navMobile.classList.contains('active') ? 'hidden' : 'auto';
         });
+        document.querySelectorAll('#nav-mobile a').forEach(link => { link.addEventListener('click', () => { navToggle.classList.remove('active'); navMobile.classList.remove('active'); document.body.style.overflow = 'auto'; }); });
 
-        document.querySelectorAll('#nav-mobile a').forEach(link => {
-            link.addEventListener('click', () => {
-                navToggle.classList.remove('active');
-                navMobile.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-
-        // Privacy Modal
         const modal = document.getElementById('privacy-modal');
         const openBtn = document.getElementById('open-privacy');
         const closeBtn = document.getElementById('close-privacy');
         const privacyCheck = document.getElementById('privacy-check');
         const submitBtn = document.getElementById('submit-btn');
+        const openModal = () => { modal.classList.add('is-visible'); document.body.style.overflow = 'hidden'; };
+        const closeModal = () => { modal.classList.remove('is-visible'); document.body.style.overflow = 'auto'; };
+        openBtn.onclick = openModal; closeBtn.onclick = closeModal; window.onclick = (e) => { if (e.target == modal) closeModal(); };
+        privacyCheck.addEventListener('change', function() { submitBtn.disabled = !this.checked; });
 
-        const openModal = () => {
-            modal.classList.add('is-visible');
-            document.body.style.overflow = 'hidden';
-        };
+        // --- Designing Emotion: Abstract Rain & Ripple Animation ---
+        const canvas = document.getElementById('rainCanvas');
+        const ctx = canvas.getContext('2d');
+        let rainLines = [];
+        let ripples = [];
+        let mouseX = 0, mouseY = 0, mouseSpeed = 0, lastMouseX = 0;
 
-        const closeModal = () => {
-            modal.classList.remove('is-visible');
-            document.body.style.overflow = 'auto';
-        };
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
 
-        openBtn.onclick = openModal;
-        closeBtn.onclick = closeModal;
-
-        window.onclick = (e) => {
-            if (e.target == modal) {
-                closeModal();
+        class RainLine {
+            constructor() { this.init(); }
+            init() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.speed = Math.random() * 0.4 + 0.15; // 少しだけ速く
+                this.len = Math.random() * 35 + 20;
+                this.opacity = 0;
+                this.maxOpacity = Math.random() * 0.15 + 0.05; // 視認性を向上
+                this.fadeSpeed = 0.005; // 少しだけ速く
+                this.state = 'fadeIn'; 
             }
-        };
+            update() {
+                this.y += this.speed;
+                this.x += mouseSpeed * 0.015; // なびきを少し強調
+                if (this.state === 'fadeIn') {
+                    this.opacity += this.fadeSpeed;
+                    if (this.opacity >= this.maxOpacity) this.state = 'fadeOut';
+                } else {
+                    this.opacity -= this.fadeSpeed;
+                    if (this.opacity <= 0) this.init();
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(142, 126, 106, ${this.opacity})`;
+                ctx.lineWidth = 0.5;
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x, this.y + this.len);
+                ctx.stroke();
+            }
+        }
 
-        privacyCheck.addEventListener('change', function() {
-            submitBtn.disabled = !this.checked;
+        class Ripple {
+            constructor(x, y, isMouse = false) {
+                this.x = x || Math.random() * canvas.width;
+                this.y = y || Math.random() * canvas.height;
+                this.r = 0;
+                this.maxR = isMouse ? Math.random() * 35 + 15 : Math.random() * 110 + 70; 
+                this.opacity = isMouse ? 0.3 : 0.18; 
+                this.speed = isMouse ? 1.2 : 0.5; // 広がる速度をわずかに向上
+            }
+            update() {
+                this.r += this.speed;
+                this.opacity -= 0.0025; 
+                return this.opacity > 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(142, 126, 106, ${this.opacity})`;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
+            }
+        }
+
+        function setup() {
+            rainLines = Array.from({ length: 35 }, () => new RainLine()); // 数を35個に調整
+            ripples = [];
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            rainLines.forEach(line => { line.update(); line.draw(); });
+            ripples = ripples.filter(ripple => {
+                const alive = ripple.update();
+                if (alive) ripple.draw();
+                return alive;
+            });
+
+            // 波紋の頻度を向上
+            if (Math.random() < 0.015) ripples.push(new Ripple());
+            mouseSpeed *= 0.95;
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            mouseSpeed = mouseX - lastMouseX;
+            lastMouseX = mouseX;
+            // マウス波紋の反応を向上
+            if (Math.random() < 0.15) ripples.push(new Ripple(mouseX, mouseY, true));
         });
 
-        /* --- Voice Slider Logic --- */
+        window.addEventListener('resize', () => { resize(); setup(); });
+        resize(); setup(); animate();
+
+        // --- Voice Slider Logic ---
         const slider = document.getElementById('voice-slider');
         const nextBtn = document.getElementById('slide-next');
         const prevBtn = document.getElementById('slide-prev');
-
         let targetScrollLeft = slider.scrollLeft;
-        let animationId = null;
-
+        let animationIdScroll = null;
         const updateButtons = () => {
             const scrollLeft = slider.scrollLeft;
             const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
             if (scrollLeft <= 10) prevBtn.classList.add('hidden'); else prevBtn.classList.remove('hidden');
             if (scrollLeft >= maxScrollLeft - 10) nextBtn.classList.add('hidden'); else nextBtn.classList.remove('hidden');
         };
-
-        const getScrollAmount = () => {
-            const card = slider.querySelector('.voice-card');
-            return card ? card.offsetWidth + 30 : 410; 
-        };
-
+        const getScrollAmount = () => { const card = slider.querySelector('.voice-card'); return card ? card.offsetWidth + 30 : 410; };
         const animateToTarget = (target) => {
             slider.style.scrollSnapType = 'none';
             const start = slider.scrollLeft;
             const distance = target - start;
             const duration = 1200; 
             let startTime = null;
-
             const step = (timestamp) => {
                 if (!startTime) startTime = timestamp;
                 const progress = Math.min((timestamp - startTime) / duration, 1);
                 const easing = 1 - Math.pow(1 - progress, 4); 
                 slider.scrollLeft = start + distance * easing;
-
-                if (progress < 1) {
-                    animationId = requestAnimationFrame(step);
-                } else {
-                    animationId = null;
-                    slider.style.scrollSnapType = 'x mandatory';
-                    updateButtons();
-                }
+                if (progress < 1) animationIdScroll = requestAnimationFrame(step);
+                else { animationIdScroll = null; slider.style.scrollSnapType = 'x mandatory'; updateButtons(); }
             };
-            
-            if (animationId) cancelAnimationFrame(animationId);
-            animationId = requestAnimationFrame(step);
+            if (animationIdScroll) cancelAnimationFrame(animationIdScroll);
+            animationIdScroll = requestAnimationFrame(step);
         };
-
-        nextBtn.addEventListener('click', () => {
-            const amount = getScrollAmount();
-            const max = slider.scrollWidth - slider.clientWidth;
-            targetScrollLeft = Math.min(targetScrollLeft + amount, max);
-            animateToTarget(targetScrollLeft);
-        });
-
-        prevBtn.addEventListener('click', () => {
-            const amount = getScrollAmount();
-            targetScrollLeft = Math.max(targetScrollLeft - amount, 0); 
-            animateToTarget(targetScrollLeft);
-        });
-
-        slider.addEventListener('scroll', () => {
-            if (!animationId) {
-                targetScrollLeft = slider.scrollLeft;
-                updateButtons();
-            }
-        });
-
+        nextBtn.addEventListener('click', () => { const amount = getScrollAmount(); const max = slider.scrollWidth - slider.clientWidth; targetScrollLeft = Math.min(targetScrollLeft + amount, max); animateToTarget(targetScrollLeft); });
+        prevBtn.addEventListener('click', () => { const amount = getScrollAmount(); targetScrollLeft = Math.max(targetScrollLeft - amount, 0); animateToTarget(targetScrollLeft); });
+        slider.addEventListener('scroll', () => { if (!animationIdScroll) { targetScrollLeft = slider.scrollLeft; updateButtons(); } });
         window.addEventListener('load', updateButtons);
-        window.addEventListener('resize', () => {
-            targetScrollLeft = slider.scrollLeft;
-            updateButtons();
-        });
+        window.addEventListener('resize', () => { targetScrollLeft = slider.scrollLeft; updateButtons(); });
     </script>
 </body>
 </html>
