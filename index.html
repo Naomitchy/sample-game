@@ -178,20 +178,22 @@
         }
 
         .hero-content { position: relative; z-index: 1; text-align: center; width: 100%; }
+        
+        /* 【ヒーローエリア再調整】PCサイズを適度に抑制 */
         .hero-copy-part { 
             display: block; 
-            font-size: clamp(1.4rem, 4vw, 2.2rem); 
-            letter-spacing: 0.6em; 
-            font-weight: 200; 
+            font-size: clamp(1.6rem, 4vw, 2.6rem); /* 最大サイズを控えめに調整 */
+            letter-spacing: 0.35em; 
+            font-weight: 400; 
             line-height: 1.6;
             white-space: nowrap; 
         }
-        .hero-copy-part:last-child { margin-top: 0.5em; }
+        .hero-copy-part:last-child { margin-top: 0.4em; }
         
         .hero-sub-copy {
-            margin-top: 2.5rem;
+            margin-top: 3.5rem;
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             letter-spacing: 0.25em;
             color: var(--accent);
             font-weight: 300;
@@ -363,7 +365,6 @@
             .container { padding: 0 24px !important; }
             header.site-header { padding: 0 20px; }
             
-            /* ロゴを一行に */
             .logo { 
                 font-size: 1.05rem; 
                 letter-spacing: 0.15em; 
@@ -372,8 +373,16 @@
 
             .nav-desktop { display: none; }
             .nav-toggle { display: flex; }
-            .hero-copy-part { font-size: 1.3rem; letter-spacing: 0.15em; white-space: normal; max-width: 90%; margin: 0 auto; }
-            .hero-sub-copy { font-size: 0.85rem; padding: 0 15px; }
+
+            /* ヒーローエリア・スマホ調整（ユーザー様お気に入りのバランスを維持） */
+            .hero-copy-part { 
+                font-size: 1.6rem; 
+                letter-spacing: 0.2em; 
+                white-space: normal; 
+                max-width: 90%; 
+                margin: 0 auto; 
+            }
+            .hero-sub-copy { font-size: 1rem; padding: 0 15px; }
 
             /* News項目の巨大な空白を除去 */
             #news { padding: 60px 0 40px; }
@@ -544,7 +553,7 @@
             <details>
                 <summary>法人・団体向けの取り組み</summary>
                 <div class="details-content">
-                    <p>▶ 法人・団体向けのコーチングや研修等、ご相談ください！<br>AIの時代に、チームや個人が個性を大切にしながら働ける組織づくりを、対話を通じてサポートしています。社内ワークショップやプロジェクト伴走などもご相談ください。まずはお気軽にお問い合わせください。</p>
+                    <p>▶ 法人・団体向けのコーチングや研修等, ご相談ください！<br>AIの時代に, チームや個人が個性を大切にしながら働ける組織づくりを, 対話を通じてサポートしています。社内ワークショップやプロジェクト伴走などもご相談ください。まずはお気軽にお問い合わせください。</p>
                     <a href="#contact" class="service-cta">法人向けサービスを相談する</a>
                 </div>
             </details>
@@ -557,7 +566,7 @@
                     <p style="margin-bottom: 20px;">3ヶ月で見つける わたしのバイオリズムWS（9月〜11月）。開催レポートや参加者の気づきを順次公開予定です。※次回開催に向けて継続参加希望をヒアリング予定。</p>
                     <div class="status-tag">開催予定</div>
                     <p>サンガ：同じテーマを持つ人がゆるやかにつながり合えるコミュニティ。<br>
-                    読書会：本をきっかけに語り合い、気づきを共有する場。</p>
+                    読書会：本をきっかけに語り合い, 気づきを共有する場。</p>
                     <a href="#contact" class="service-cta">ワークショップのお問い合わせ</a>
                 </div>
             </details>
@@ -613,7 +622,7 @@
                 </div>
                 <div class="voice-card">
                     <span>Tさん（50代・会社経営）</span>
-                    <strong class="voice-headline">自分の行動の奥底にある前提に気づき、変える勇気を持てた。</strong>
+                    <strong class="voice-headline">自分の行動의 奥底にある前提に気づき、変える勇気を持てた。</strong>
                     <p>ふだんは誰とも話さないようなことにじっくり時間を使えた. 誰かと話すことの力ってこういうことなんだなと, 久々に思いました。</p>
                 </div>
                 <div class="voice-card">
