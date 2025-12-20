@@ -362,6 +362,14 @@
         @media (max-width: 850px) {
             .container { padding: 0 24px !important; }
             header.site-header { padding: 0 20px; }
+            
+            /* 【修正箇所】スマホでロゴを一行に収める設定 */
+            .logo { 
+                font-size: 1.05rem; 
+                letter-spacing: 0.15em; 
+                white-space: nowrap; 
+            }
+
             .nav-desktop { display: none; }
             .nav-toggle { display: flex; }
             .hero-copy-part { font-size: 1.3rem; letter-spacing: 0.15em; white-space: normal; max-width: 90%; margin: 0 auto; }
@@ -782,7 +790,7 @@
 
         prevBtn.addEventListener('click', () => {
             const amount = getScrollAmount();
-            targetScrollLeft = Math.max(targetScrollLeft + amount, 0);
+            targetScrollLeft = Math.max(targetScrollLeft - amount, 0); // ここを修正: prevはマイナス方向
             animateToTarget(targetScrollLeft);
         });
 
