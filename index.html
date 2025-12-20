@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chihiro Ogusu | おかえりなさい、あなたの命の音。</title>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><path d=%22M20,65 A30,30 0 0,1 80,65%22 fill=%22none%22 stroke=%22%238e7e6a%22 stroke-width=%226%22 stroke-linecap=%22round%22/><circle cx=%2250%22 cy=%2260%22 r=%228%22 fill=%22%238e7e6a%22/></svg>">
+
+    <meta property="og:site_name" content="Chihiro Ogusu Official Website">
+    <meta property="og:title" content="Chihiro Ogusu | おかえりなさい、あなたの命の音。">
+    <meta property="og:description" content="演奏家としての「聴く」力で、あなたの人生を調律する。小楠千尋の公式ウェブサイト。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:image" content="https://yourdomain.com/profile.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chihiro Ogusu | おかえりなさい、あなたの命の音。">
+    <meta name="twitter:description" content="演奏家としての「聴く」力で、あなたの人生を調律する。小楠千尋の公式ウェブサイト。">
+    <meta name="twitter:image" content="https://yourdomain.com/profile.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@200;400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400&family=Cormorant+Garamond:ital,wght@1,300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #1a1a1a;
+            --sub-text: #666666;
+            --accent: #8e7e6a;
+            --line: #eeeeee;
+            --light-color: rgba(255, 250, 240, 0.6);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Shippori Mincho B1', serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 2.2;
+            letter-spacing: 0.1em;
+            word-break: normal; 
+            overflow-wrap: break-word;
+            overflow-x: hidden;
+        }
+
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 0 40px; 
+        }
+        
+        .fade { 
+            opacity: 0; 
+            transform: translateY(20px); 
+            transition: opacity 1.6s ease-out, transform 1.6s ease-out; 
+        }
+        .fade.visible { opacity: 1; transform: translateY(0); }
+        .fade-delay { transition-delay: 0.8s; }
+        .fade-delay-2 { transition-delay: 1.6s; }
+
+        /* --- Header --- */
+        header.site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.3em;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 300;
+        }
+
+        .nav-desktop { display: flex; gap: 30px; }
+        .nav-desktop a {
+            font-family: 'Cormorant Garamond', serif;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            letter-spacing: 0.15em;
+            transition: 0.3s;
+        }
+        .nav-desktop a:hover { color: var(--accent); }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1100;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 1.2px;
+            background-color: var(--text);
+            transition: all 0.4s ease;
+        }
+
+        .nav-toggle.active span:nth-child(1) { transform: translateY(7.2px) rotate(45deg); }
+        .nav-toggle.active span:nth-child(2) { opacity: 0; }
+        .nav-toggle.active span:nth-child(3) { transform: translateY(-7.2px) rotate(-45deg); }
+
+        .nav-mobile {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            transition: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1050;
+        }
+        .nav-mobile.active { right: 0; }
+        .nav-mobile a {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: var(--text);
+            letter-spacing: 0.2em;
+        }
+
+        /* --- Hero --- */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-light-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--light-color) 0%, rgba(255,255,255,0) 70%);
+            mix-blend-mode: multiply;
+            filter: blur(60px);
+            z-index: 0;
+            opacity: 0;
+            animation: lightMove 25s infinite alternate ease-in-out, lightFade 8s infinite alternate ease-in-out;
+        }
+        .light-1 { width: 80vw; height: 80vw; top: -20%; left: -20%; }
+        .light-2 { width: 70vw; height: 70vw; bottom: -10%; right: -10%; animation-delay: 2s; }
+
+        @keyframes lightMove {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(15%, 10%) scale(1.1); }
+        }
+        @keyframes lightFade {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero-content { position: relative; z-index: 1; text-align: center; width: 100%; }
+        .hero-copy-part { 
+            display: block; 
+            font-size: clamp(1.4rem, 4vw, 2.2rem); 
+            letter-spacing: 0.6em; 
+            font-weight: 200; 
+            line-height: 1.6;
+            white-space: nowrap; 
+        }
+        .hero-copy-part:last-child { margin-top: 0.5em; }
+        
+        .hero-sub-copy {
+            margin-top: 2.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.25em;
+            color: var(--accent);
+            font-weight: 300;
+            font-style: italic;
+        }
+        .hero-sub-copy span { display: inline-block; white-space: nowrap; }
+
+        /* --- News --- */
+        #news { padding: 100px 0 60px; }
+        .section-title { 
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 0.85rem; 
+            color: var(--accent); 
+            margin-bottom: 25px; 
+            letter-spacing: 0.3em; 
+            border-bottom: 1px solid var(--line); 
+            padding-bottom: 10px; 
+            width: fit-content; 
+        }
+        
+        .news-item { 
+            display: flex; 
+            align-items: flex-start; 
+            gap: 40px; 
+            padding: 25px 0; 
+            color: var(--text); 
+            border-bottom: 1px solid var(--line); 
+            font-family: 'Zen Kaku Gothic New', sans-serif; 
+            font-size: 0.9rem; 
+        }
+        .news-item span:first-child { 
+            flex: 0 0 120px; 
+            color: var(--accent);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+        .news-item span:last-child { 
+            flex: 1; 
+            line-height: 1.8;
+            color: var(--sub-text);
+        }
+
+        /* --- Message --- */
+        .message { padding: 150px 0; text-align: center; background: #fafafa; }
+        .message-p { max-width: 800px; margin: 0 auto; font-size: 1.05rem; line-height: 2.8; padding: 0 20px; text-align: left; display: inline-block; }
+
+        /* --- About --- */
+        #about { padding: 150px 0; }
+        .about-layout { display: flex; gap: 60px; align-items: center; margin-bottom: 50px; }
+        .about-image-wrapper { flex: 0 0 320px; }
+        .about-image { width: 100%; height: auto; display: block; filter: grayscale(0.1); border-radius: 2px; }
+        .profile-head { display: flex; align-items: baseline; gap: 20px; margin-bottom: 25px; border-bottom: 1px solid var(--text); padding-bottom: 10px; }
+        .profile-name-jp { font-size: 1.6rem; font-weight: 700; }
+        .profile-name-en { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
+        .profile-sub { font-size: 0.8rem; color: var(--sub-text); margin-bottom: 25px; }
+
+        /* --- Service --- */
+        #service { padding: 120px 0; background-color: #fcfcfc; }
+        .service-category-title { font-size: 0.85rem; color: var(--accent); margin: 60px 0 30px; letter-spacing: 0.3em; border-left: 3px solid var(--accent); padding-left: 15px; }
+        details { margin-bottom: 25px; border: 1px solid var(--line); border-radius: 2px; background: white; transition: 0.3s; }
+        details[open] { border-color: var(--accent); }
+        summary { padding: 25px 35px; cursor: pointer; list-style: none; font-weight: 500; display: flex; justify-content: space-between; align-items: center; font-size: 1rem; transition: 0.3s; }
+        summary:hover { background: #fafafa; }
+        .details-content { padding: 35px; border-top: 1px solid var(--line); font-size: 0.9rem; color: #444; }
+        .price-box { background: #f7f5f2; padding: 25px; color: var(--accent); margin-top: 20px; font-weight: 500; }
+        .status-tag { display: inline-block; padding: 2px 8px; font-size: 0.7rem; background: var(--accent); color: white; margin-bottom: 10px; }
+        .service-target { color: var(--accent); font-weight: 500; margin-bottom: 15px; font-family: 'Shippori Mincho B1', serif; font-size: 0.95rem; }
+        .service-cta { display: inline-block; margin-top: 25px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; transition: 0.3s; border-radius: 2px; }
+        .service-cta:hover { background: var(--accent); color: white; }
+
+        /* --- Voice Slider --- */
+        #voice { padding: 150px 0; background-color: var(--text); color: white; overflow: hidden; }
+        .voice-slider-wrapper { position: relative; width: 100%; max-width: 1200px; margin: 60px auto 0; padding: 0 60px; }
+        .voice-slider { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 20px 0; }
+        .voice-slider::-webkit-scrollbar { display: none; }
+        .voice-card { flex: 0 0 380px; min-height: 460px; background: rgba(255,255,255,0.05); padding: 50px 40px; border: 1px solid rgba(255,255,255,0.1); scroll-snap-align: start; display: flex; flex-direction: column; }
+        .voice-card span { display: block; font-size: 0.75rem; opacity: 0.4; margin-bottom: 30px; font-family: 'Zen Kaku Gothic New', sans-serif; }
+        .voice-headline { font-weight: 500; color: white; font-size: 1.05rem; line-height: 1.6; margin-bottom: 20px; }
+        .voice-card p { font-size: 0.9rem; line-height: 1.8; white-space: pre-wrap; color: rgba(255,255,255,0.7); }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 10; }
+        .slider-btn:hover { background: white; color: var(--text); }
+        .slider-btn.prev { left: 0; }
+        .slider-btn.next { right: 0; }
+        .slider-btn.hidden { opacity: 0; visibility: hidden; }
+
+        /* --- Contact --- */
+        #contact { padding: 100px 0 150px; max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 40px; }
+        label.form-label { display: block; font-size: 0.85rem; margin-bottom: 12px; color: var(--accent); font-weight: 500; }
+        input[type="text"], input[type="email"], textarea { width: 100%; padding: 18px; border: 1px solid var(--line); background: #fafafa; font-family: inherit; font-size: 1rem; }
+        .checkbox-group { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        .checkbox-group label { display: flex; align-items: center; gap: 12px; font-weight: 400; color: var(--text); font-size: 0.9rem; cursor: pointer; }
+        .checkbox-group input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+        .btn-submit { display: inline-block; width: 100%; padding: 25px; background: var(--text); color: white; border: none; font-size: 0.95rem; letter-spacing: 0.5em; cursor: pointer; transition: 0.4s; }
+        .btn-submit:hover:not(:disabled) { background: var(--accent); }
+        .btn-submit:disabled { opacity: 0.3; cursor: not-allowed; }
+        .sns-links-footer { display: flex; justify-content: center; gap: 40px; padding-top: 60px; }
+        .sns-item { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--sub-text); text-decoration: none; letter-spacing: 0.2em; font-size: 0.9rem; transition: 0.3s; }
+        .sns-item:hover { color: var(--accent); }
+
+        /* --- Modal (ふわっと表示) --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 252, 248, 0.85); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(8px);
+            opacity: 0; 
+            pointer-events: none; 
+            transition: opacity 0.8s ease; 
+        }
+        .modal-overlay.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 640px;
+            max-height: 80vh;
+            padding: 60px 50px;
+            position: relative;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(142, 126, 106, 0.1);
+            border-radius: 4px;
+            transform: translateY(30px);
+            transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .modal-overlay.is-visible .modal-content {
+            transform: translateY(0);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 15px;
+        }
+        .modal-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.2em;
+            font-weight: 300;
+            color: var(--accent);
+            font-size: 1.4rem;
+        }
+        .modal-close {
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+            color: var(--sub-text);
+            font-weight: 200;
+            transition: 0.4s;
+        }
+        .modal-close:hover { color: var(--accent); transform: rotate(90deg); }
+        .modal-body { font-size: 0.85rem; line-height: 2; color: var(--sub-text); }
+        .modal-body h4 { margin: 30px 0 10px; color: var(--text); font-weight: 500; }
+
+        footer { padding: 80px 0; text-align: center; font-size: 0.75rem; color: var(--sub-text); font-family: 'Cormorant Garamond', serif; border-top: 1px solid var(--line); }
+
+        /* --- Mobile Responsive --- */
+        @media (max-width: 850px) {
+            .container { padding: 0 24px !important; }
+            header.site-header { padding: 0 20px; }
+            .nav-desktop { display: none; }
+            .nav-toggle { display: flex; }
+            .hero-copy-part { font-size: 1.3rem; letter-spacing: 0.15em; white-space: normal; max-width: 90%; margin: 0 auto; }
+            .hero-sub-copy { font-size: 0.85rem; padding: 0 15px; }
+            .news-item { flex-direction: column; gap: 8px; }
+            .about-layout { flex-direction: column; gap: 30px; }
+            .about-image-wrapper { width: 100%; }
+            .profile-head { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .voice-slider-wrapper { padding: 0 15px; }
+            .voice-card { flex: 0 0 88%; padding: 35px 25px; min-height: 420px; }
+            .slider-btn { display: none; }
+            .modal-content { padding: 40px 25px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <a href="#" class="logo">CHIHIRO OGUSU</a>
+        <nav class="nav-desktop">
+            <a href="#news">News</a>
+            <a href="#about">About</a>
+            <a href="#service">Service</a>
+            <a href="#voice">Voice</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-toggle" id="nav-toggle">
+            <span></span><span></span><span></span>
+        </div>
+    </header>
+
+    <div class="nav-mobile" id="nav-mobile">
+        <a href="#news">News</a>
+        <a href="#about">About</a>
+        <a href="#service">Service</a>
+        <a href="#voice">Voice</a>
+        <a href="#contact">Contact</a>
+    </div>
+
+    <section class="hero-section">
+        <div class="hero-light-effect light-1"></div>
+        <div class="hero-light-effect light-2"></div>
+        <div class="hero-content">
+            <span class="hero-copy-part fade">おかえりなさい、</span>
+            <span class="hero-copy-part fade fade-delay">あなたの命の音。</span>
+            <p class="hero-sub-copy fade fade-delay-2">
+                <span>The overture to your</span> <span>authentic life begins here.</span>
+            </p>
+        </div>
+    </section>
+
+    <section id="news" class="container fade">
+        <p class="section-title">News</p>
+        <div class="news-item"><span>2025.10.26</span><span>11/15〜11/17 ワークショップを開催いたします。</span></div>
+        <div class="news-item"><span>2025.09.01</span><span>ホームページを開設いたしました。</span></div>
+    </section>
+
+    <section class="message">
+        <div class="container" style="text-align: center;">
+            <div class="message-p fade">
+                あなたの内側にあるもの。いつも、なきものにしていませんか？。<br>
+				他の誰でもないあなただけが聴くことのできる、大切な音。<br><br>
+                声も、感情も、感性も。あなたが聴かなければ、それはどこにも届きません。<br>
+                自分の声に従って生きる。それは、時に険しい道かもしれません。<br>
+				でも、その険しさの先に、どんな世界が待っているのでしょうか。<br>
+				わたしたちコーチは、それを共に歩む、パートナーです。<br><br>
+                あなたらしさを存分に、ご自身と、大切な人のために。<br>
+                そこで、世界のために使ってほしい。<br>
+                それが、自分にやさしくするということ。<br>
+                それが、人と世界と、深くつながる方法だとわたしは信じています。<br><br>
+                人間だからといって、驕りたくない。<br>
+                わたしたちも地球の一部です。<br>
+                やさしくて、まあるい世界のために。<br>
+                どうか、まずは、あなたが自分を大切に扱ってください。<br><br>
+				わたしは、あなたの本当の音を、共に奏でる人です。
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <div class="about-layout">
+            <div class="about-image-wrapper fade">
+                <img src="profile.jpg" alt="小楠 千尋" class="about-image" style="width: 100%; height: auto;">
+            </div>
+            <div class="about-text-wrapper">
+                <div class="profile-head fade">
+                    <span class="profile-name-jp">小楠 千尋</span>
+                    <span class="profile-name-en">Ogusu Chihiro</span>
+                </div>
+                <p class="profile-sub fade">1989.07.18 / 静岡県浜松市出身</p>
+                <div class="profile-bio fade">
+                    <p>東京音楽大学およびイタリア・ドニゼッティ音楽院でファゴットを学ぶ。約10年間にわたり、国内外で演奏・指導に携わる。</p>
+                    <p style="margin-top: 1.5rem;">2018年にCo-Active®コーチングに出会い、自分の人生で言葉になっていなかったものに名前がつく体験を経て開業。2025年、本業として独立。演奏家としての「聴く」力と、地域活動で培った「伴走」の精神で、クライアントの人生の調律を行う。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="service" class="fade">
+        <div class="container">
+            <p class="section-title">Service</p>
+            <p class="service-category-title">PERSONAL SESSION</p>
+            <details>
+                <summary>ご契約前の確認・ご相談</summary>
+                <div class="details-content">
+                    <p>▶ 無料・15〜25分<br>継続セッションをご希望の方には、事前にスケジュールや条件の確認をお願いしています。短いお話を通して、進め方の説明やご質問への回答を行います。</p>
+                    <a href="#contact" class="service-cta">この内容で相談する</a>
+                </div>
+            </details>
+            <details>
+                <summary>おためしセッション</summary>
+                <div class="details-content">
+                    <p class="service-target">「答えを急がず、まずは自分の声を聴いてみたい方へ」</p>
+                    <p>▶ 60分｜11,000円（税込）<br>コーチングを一度体験してみたい方へ。セッションの雰囲気や相性を確かめながら、ご自身のテーマに丁寧に向き合っていただけます。<br>※おためしセッション実施時に継続契約をいただいた場合は、この料金を差し引きます。</p>
+                    <a href="#contact" class="service-cta">おためしセッションを申し込む</a>
+                </div>
+            </details>
+            <details>
+                <summary>導入セッション</summary>
+                <div class="details-content">
+                    <p>▶ 3時間｜60,000円（税込）<br>半年間の継続セッションを始める前に行う、導入セッションです。これまでの人生を振り返り、大切にしたいことや望む在り方を明確にします。</p>
+                    <a href="#contact" class="service-cta">導入セッションの相談をする</a>
+                </div>
+            </details>
+            <details>
+                <summary>継続セッション</summary>
+                <div class="details-content">
+                    <p class="service-target">「社会的な役割（仕事・家庭）を全うしながらも、自分の真ん中を置き去りにしたくない方へ」</p>
+                    <p>▶ 月2回／60分 ×6ヶ月<br>導入セッションで明らかにした「大切にしたいこと」を、日常の選択や行動に変えていくための継続プログラムです。</p>
+                    <div class="price-box">
+                        一括：244,000円（税込）<br>
+                        月額：42,000円（税込）×6ヶ月
+                    </div>
+                    <a href="#contact" class="service-cta">継続セッションについて相談する</a>
+                </div>
+            </details>
+
+            <p class="service-category-title">OTHERS</p>
+            <details>
+                <summary>Coaching Circle（コーチング・サークル）</summary>
+                <div class="details-content">
+                    <p class="service-target">「他者の響き（声）を鏡にして、自分を深く知りたい方へ」</p>
+                    <p>▶ 少人数制（4〜9名）／月1回・120分 ×6ヶ月<br>複数名でのグループセッションです。仲間の存在や問いがきっかけとなり、思いがけず自分のテーマが動き出すことがあります。</p>
+                    <div class="price-box">
+                        一括：99,000円（税込）<br>
+                        月額：18,150円（税込）×6ヶ月
+                    </div>
+                    <a href="#contact" class="service-cta">サークルへの参加を希望する</a>
+                </div>
+            </details>
+            <details>
+                <summary>法人・団体向けの取り組み</summary>
+                <div class="details-content">
+                    <p>▶ 法人・団体向けのコーチングや研修等、ご相談ください！<br>AIの時代に、チームや個人が個性を大切にしながら働ける組織づくりを、対話を通じてサポートしています。社内ワークショップやプロジェクト伴走などもご相談ください。まずはお気軽にお問い合わせください。</p>
+                    <a href="#contact" class="service-cta">法人向けサービスを相談する</a>
+                </div>
+            </details>
+            
+            <details>
+                <summary>ワークショップ（不定期開催）</summary>
+                <div class="details-content">
+                    <p>「自分の声に耳を傾ける」「対話の時間」などの少人数の対話の場を開催しています。コーチングが初めての方にもご参加いただきやすい内容です。最新情報はInstagramやLINEでお知らせしています。</p>
+                    <div class="status-tag">開催中</div>
+                    <p style="margin-bottom: 20px;">3ヶ月で見つける わたしのバイオリズムWS（9月〜11月）。開催レポートや参加者の気づきを順次公開予定です。※次回開催に向けて継続参加希望をヒアリング予定。</p>
+                    <div class="status-tag">開催予定</div>
+                    <p>サンガ：同じテーマを持つ人がゆるやかにつながり合えるコミュニティ。<br>
+                    読書会：本をきっかけに語り合い、気づきを共有する場。</p>
+                    <a href="#contact" class="service-cta">ワークショップのお問い合わせ</a>
+                </div>
+            </details>
+        </div>
+    </section>
+
+    <section id="voice" class="fade">
+        <div class="container">
+            <p class="section-title" style="color: white; border-color: rgba(255,255,255,0.2);">Voice</p>
+        </div>
+        <div class="voice-slider-wrapper">
+            <button class="slider-btn prev hidden" id="slide-prev">←</button>
+            <div class="voice-slider" id="voice-slider">
+                <div class="voice-card">
+                    <span>Kさん（20代・Web制作）</span>
+                    <strong class="voice-headline">「この人にウソついても意味ないな」って思った。</strong>
+                    <p>ちひろさんってぜったいわかってくれるだけでは終わらせないですよね笑</p>
+                </div>
+                <div class="voice-card">
+                    <span>Aさん（20代・アパレル）</span>
+                    <strong class="voice-headline">すぐに答えを出すのではなく, じっくり問いを育てる時間が贅沢でした。</strong>
+                    <p>ちひろさん, 約半年間ありがとうございました。コーチングとは？を何も知らなかった私が, 今は人におすすめしたいものになっています。</p>
+                </div>
+                <div class="voice-card">
+                    <span>匿名（20代・会社員）</span>
+                    <strong class="voice-headline">ちひろさんがいるから、向き合うことが怖くなかった。</strong>
+                    <p>ずっと頭の中でぐるぐるしてたことが, ただ話すだけでこんなに形になるんだって驚きました。</p>
+                </div>
+                <div class="voice-card">
+                    <span>Nさん（20代・大学院生）</span>
+                    <strong class="voice-headline">「それ、いま話してみる？」って言ってくれた瞬間、テーマが動き出した。</strong>
+                    <p>何を言えばいいのか分かんないのに, 話し始めちゃってたよね笑 ふつうに誰かと話してたら, きっと流されて終わってたと思う。</p>
+                </div>
+                <div class="voice-card">
+                    <span>Tさん（50代・士業）</span>
+                    <strong class="voice-headline">問いに向き合う時間に、まさか自分がこんなに救われるとは。</strong>
+                    <p>普段, 答えを求められる立場にいるので, 「ここでは、すぐに答え出さなくていい」と言われてホッとしたのと同時に混乱したことを覚えています。</p>
+                </div>
+                <div class="voice-card">
+                    <span>Tさん（50代・医療コンサル）</span>
+                    <strong class="voice-headline">優しさと厳しさを両立させて進めていく、自然に溶け合うような時間。</strong>
+                    <p>自分が今大切にしたいことをきちんと感じられること。これからの人生で特に大事にしたい姿勢を思い出せたことが大きな価値でした。</p>
+                </div>
+                <div class="voice-card">
+                    <span>Yさん（30代・会社員・マネジメント職）</span>
+                    <strong class="voice-headline">違和感の正体に向き合い、半年でちゃんと“自分の答え”が出せた。</strong>
+                    <p>「順調だよね」と言われることに違和感があったけど, ちひろさんに問われて, そこからの半年で自分の答えが見つかりました。</p>
+                </div>
+                <div class="voice-card">
+                    <span>Hさん（40代・フリーランス）</span>
+                    <strong class="voice-headline">人に見せない“グズグズした自分”を、一緒に扱ってもらえた。</strong>
+                    <p>ひとりで考えてると, すぐ“まともな答え”を探し始めちゃうけど, セッションでの問いかけが一番の変化をくれました。</p>
+                </div>
+                <div class="voice-card">
+                    <span>Tさん（50代・会社経営）</span>
+                    <strong class="voice-headline">自分の行動の奥底にある前提に気づき、変える勇気を持てた。</strong>
+                    <p>ふだんは誰とも話さないようなことにじっくり時間を使えた. 誰かと話すことの力ってこういうことなんだなと, 久々に思いました。</p>
+                </div>
+                <div class="voice-card">
+                    <span>Fさん（20代・コンサル）</span>
+                    <strong class="voice-headline">“正しさ”から自由になれる、数少ない貴重な時間。</strong>
+                    <p>守秘義務があるため, ありのままの自分でいられた。社会に出てから“正しいこと”しか言ってこなかった自分に気づけました。</p>
+                </div>
+            </div>
+            <button class="slider-btn next" id="slide-next">→</button>
+        </div>
+    </section>
+
+    <section id="contact" class="container fade">
+        <h2 style="font-size: 1.6rem; text-align: center; margin-bottom: 60px; letter-spacing: 0.4em;">Contact</h2>
+        <form action="#">
+            <div class="form-group"><label class="form-label">お名前*</label><input type="text" required></div>
+            <div class="form-group"><label class="form-label">メールアドレス*</label><input type="email" required></div>
+            
+            <div class="form-group">
+                <label class="form-label">お問い合わせ内容をお選びください（複数選択可）*</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="subject" value="session"> セッションについて</label>
+                    <label><input type="checkbox" name="subject" value="continuous"> 継続セッションのご相談</label>
+                    <label><input type="checkbox" name="subject" value="workshop"> ワークショップや講座について</label>
+                    <label><input type="checkbox" name="subject" value="corporate"> 法人・団体でのご相談</label>
+                    <label><input type="checkbox" name="subject" value="speaking"> 登壇・講演のご依頼</label>
+                    <label><input type="checkbox" name="subject" value="other"> その他（メッセージ欄にご記入ください）</label>
+                </div>
+            </div>
+
+            <div class="form-group"><label class="form-label">メッセージ</label><textarea rows="6"></textarea></div>
+
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <label style="font-size: 0.85rem;">
+                        <input type="checkbox" id="privacy-check" required>
+                        <span><a href="javascript:void(0)" id="open-privacy" style="color: var(--accent); text-decoration: underline;">プライバシーポリシー</a>に同意する</span>
+                    </label>
+                </div>
+            </div>
+            <button type="submit" id="submit-btn" class="btn-submit" disabled>Send Message</button>
+        </form>
+
+        <div class="sns-links-footer">
+            <a href="#" class="sns-item">Instagram</a>
+            <a href="#" class="sns-item">note</a>
+            <a href="#" class="sns-item">X (Twitter)</a>
+        </div>
+    </section>
+
+    <div id="privacy-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Privacy Policy</h3>
+                <span id="close-privacy" class="modal-close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>小楠 千尋（以下、「当方」といいます。）は、本ウェブサイト上で提供するサービスにおける個人情報の取扱いについて、以下の通りプライバシーポリシーを定めます。</p>
+                <h4>1. 個人情報の取得</h4>
+                <p>当方は、お問い合わせやサービスのお申し込み時に、氏名、メールアドレス等の個人情報を、適正かつ公正な手段によって取得いたします。</p>
+                <h4>2. 利用目的</h4>
+                <p>取得した個人情報は、以下の目的のために利用し、それ以外の目的には利用いたしません。<br>
+                ・お問い合わせ、ご相談への回答および資料の送付<br>
+                ・提供するサービスの実施、運営、およびアフターケア<br>
+                ・新サービス、ワークショップ、イベント等のご案内</p>
+                <h4>3. 第三者提供の禁止</h4>
+                <p>当方は、法令に定める場合を除き、あらかじめご本人の同意を得ることなく、個人情報を第三者に提供することはありません。</p>
+                <h4>4. 安全管理措置</h4>
+                <p>当方は、お預かりした個人情報の漏洩、滅失、または毀損を防止するため、必要かつ適切な安全管理措置を講じます。</p>
+                <h4>5. 開訂正・利用停止等の手続き</h4>
+                <p>ご本人から個人情報の開示、訂正、利用停止等のご請求があった場合には、ご本人であることを確認の上、速やかに対応いたします。</p>
+                <h4>6. お問い合わせ先</h4>
+                <p>プライバシーポリシーに関するお問い合わせは、本サイトのコンタクトフォームよりご連絡ください。</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2025 CHIHIRO OGUSU
+    </footer>
+
+    <script>
+        // Intersection Observer for fade animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+
+        // Mobile Navigation Toggle
+        const navToggle = document.getElementById('nav-toggle');
+        const navMobile = document.getElementById('nav-mobile');
+        
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMobile.classList.toggle('active');
+            if(navMobile.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        document.querySelectorAll('#nav-mobile a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMobile.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Privacy Modal
+        const modal = document.getElementById('privacy-modal');
+        const openBtn = document.getElementById('open-privacy');
+        const closeBtn = document.getElementById('close-privacy');
+        const privacyCheck = document.getElementById('privacy-check');
+        const submitBtn = document.getElementById('submit-btn');
+
+        const openModal = () => {
+            modal.classList.add('is-visible');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closeModal = () => {
+            modal.classList.remove('is-visible');
+            document.body.style.overflow = 'auto';
+        };
+
+        openBtn.onclick = openModal;
+        closeBtn.onclick = closeModal;
+
+        window.onclick = (e) => {
+            if (e.target == modal) {
+                closeModal();
+            }
+        };
+
+        privacyCheck.addEventListener('change', function() {
+            submitBtn.disabled = !this.checked;
+        });
+
+        /* --- Voice Slider Logic --- */
+        const slider = document.getElementById('voice-slider');
+        const nextBtn = document.getElementById('slide-next');
+        const prevBtn = document.getElementById('slide-prev');
+
+        let targetScrollLeft = slider.scrollLeft;
+        let animationId = null;
+
+        const updateButtons = () => {
+            const scrollLeft = slider.scrollLeft;
+            const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+            if (scrollLeft <= 10) prevBtn.classList.add('hidden'); else prevBtn.classList.remove('hidden');
+            if (scrollLeft >= maxScrollLeft - 10) nextBtn.classList.add('hidden'); else nextBtn.classList.remove('hidden');
+        };
+
+        const getScrollAmount = () => {
+            const card = slider.querySelector('.voice-card');
+            return card ? card.offsetWidth + 30 : 410; 
+        };
+
+        const animateToTarget = (target) => {
+            slider.style.scrollSnapType = 'none';
+            const start = slider.scrollLeft;
+            const distance = target - start;
+            const duration = 1200; 
+            let startTime = null;
+
+            const step = (timestamp) => {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const easing = 1 - Math.pow(1 - progress, 4); 
+                slider.scrollLeft = start + distance * easing;
+
+                if (progress < 1) {
+                    animationId = requestAnimationFrame(step);
+                } else {
+                    animationId = null;
+                    slider.style.scrollSnapType = 'x mandatory';
+                    updateButtons();
+                }
+            };
+            
+            if (animationId) cancelAnimationFrame(animationId);
+            animationId = requestAnimationFrame(step);
+        };
+
+        nextBtn.addEventListener('click', () => {
+            const amount = getScrollAmount();
+            const max = slider.scrollWidth - slider.clientWidth;
+            targetScrollLeft = Math.min(targetScrollLeft + amount, max);
+            animateToTarget(targetScrollLeft);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            const amount = getScrollAmount();
+            targetScrollLeft = Math.max(targetScrollLeft + amount, 0);
+            animateToTarget(targetScrollLeft);
+        });
+
+        slider.addEventListener('scroll', () => {
+            if (!animationId) {
+                targetScrollLeft = slider.scrollLeft;
+                updateButtons();
+            }
+        });
+
+        window.addEventListener('load', updateButtons);
+        window.addEventListener('resize', () => {
+            targetScrollLeft = slider.scrollLeft;
+            updateButtons();
+        });
+    </script>
+</body>
+</html>
