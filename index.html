@@ -363,7 +363,7 @@
             .container { padding: 0 24px !important; }
             header.site-header { padding: 0 20px; }
             
-            /* 【修正箇所】スマホでロゴを一行に収める設定 */
+            /* ロゴを一行に */
             .logo { 
                 font-size: 1.05rem; 
                 letter-spacing: 0.15em; 
@@ -374,7 +374,28 @@
             .nav-toggle { display: flex; }
             .hero-copy-part { font-size: 1.3rem; letter-spacing: 0.15em; white-space: normal; max-width: 90%; margin: 0 auto; }
             .hero-sub-copy { font-size: 0.85rem; padding: 0 15px; }
-            .news-item { flex-direction: column; gap: 8px; }
+
+            /* News項目の巨大な空白を除去 */
+            #news { padding: 60px 0 40px; }
+            .news-item { 
+                flex-direction: column; 
+                gap: 0;             
+                padding: 12px 0;    
+                line-height: 1.4;   
+            }
+            .news-item span:first-child { 
+                flex: none;         
+                width: auto; 
+                font-size: 0.75rem; 
+                margin-bottom: 4px; 
+                opacity: 0.8;
+            }
+            .news-item span:last-child { 
+                flex: none;
+                font-size: 0.85rem;
+                line-height: 1.6;
+            }
+
             .about-layout { flex-direction: column; gap: 30px; }
             .about-image-wrapper { width: 100%; }
             .profile-head { flex-direction: column; align-items: flex-start; gap: 5px; }
@@ -637,9 +658,9 @@
         </form>
 
         <div class="sns-links-footer">
-            <a href="#" class="sns-item">Instagram</a>
-            <a href="#" class="sns-item">note</a>
-            <a href="#" class="sns-item">X (Twitter)</a>
+            <a href="https://www.instagram.com/ogusuchihiro_coach/" class="sns-item" target="_blank" rel="noopener noreferrer">Instagram</a>
+            <a href="https://note.com/18_lug" class="sns-item" target="_blank" rel="noopener noreferrer">note</a>
+            <a href="https://x.com/18_lug" class="sns-item" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
         </div>
     </section>
 
@@ -790,7 +811,7 @@
 
         prevBtn.addEventListener('click', () => {
             const amount = getScrollAmount();
-            targetScrollLeft = Math.max(targetScrollLeft - amount, 0); // ここを修正: prevはマイナス方向
+            targetScrollLeft = Math.max(targetScrollLeft - amount, 0); 
             animateToTarget(targetScrollLeft);
         });
 
