@@ -185,8 +185,8 @@
             font-style: italic;
         }
 
-        /* --- News --- */
-        #news { padding: 100px 0 60px; }
+        /* --- Journal (Note RSS) --- */
+        #journal { padding: 100px 0 60px; }
         .section-title { 
             font-family: 'Cormorant Garamond', serif; 
             font-size: 0.85rem; 
@@ -209,6 +209,8 @@
         }
         .news-item span:first-child { flex: 0 0 120px; color: var(--accent); font-size: 0.8rem; letter-spacing: 0.05em; }
         .news-item span:last-child { flex: 1; line-height: 1.8; color: var(--sub-text); }
+        .news-item a { text-decoration: none; color: inherit; transition: 0.3s; }
+        .news-item a:hover { color: var(--accent); text-decoration: underline; }
 
         /* --- Message --- */
         .message { padding: 150px 0; text-align: center; background: #fafafa; }
@@ -218,12 +220,10 @@
             margin-bottom: 60px;
             color: var(--text);
             font-weight: 500;
-            line-height: 2.0; /* 行間を少し広げて読みやすく */
+            line-height: 2.0;
             text-align: center;
         }
-        /* 泣き別れ防止用の汎用クラス */
         .keep-together { display: inline-block; white-space: nowrap; }
-
         .message-p { max-width: 800px; margin: 0 auto; font-size: 1.05rem; line-height: 2.8; padding: 0 20px; text-align: left; display: inline-block; }
 
         /* --- About --- */
@@ -304,9 +304,8 @@
 
         /* --- Mobile Responsive --- */
         @media (max-width: 850px) {
-            /* 日本語の改行ルールを最適化 */
             body { 
-                word-break: keep-all; /* 単語の途中での改行を防ぐ */
+                word-break: keep-all;
                 overflow-wrap: anywhere; 
             }
             .container { padding: 0 24px !important; }
@@ -318,7 +317,7 @@
             .hero-copy-part { 
                 font-size: 1.6rem; 
                 letter-spacing: 0.2em; 
-                white-space: normal; /* 折り返しを許可 */
+                white-space: normal;
                 max-width: 90%; 
                 margin: 0 auto; 
                 word-break: keep-all;
@@ -326,13 +325,11 @@
             .hero-sub-copy { font-size: 0.95rem; padding: 0 15px; line-height: 1.6; }
             .hero-sub-copy span { white-space: normal; display: inline; }
 
-            /* Newsの泣き別れ防止 */
-            #news { padding: 60px 0 40px; }
+            #journal { padding: 60px 0 40px; }
             .news-item { flex-direction: column; gap: 0; padding: 12px 0; line-height: 1.4; }
             .news-item span:first-child { flex: none; width: auto; font-size: 0.75rem; margin-bottom: 4px; opacity: 0.8; }
             .news-item span:last-child { flex: none; font-size: 0.85rem; line-height: 1.6; word-break: break-all; }
 
-            /* Messageの泣き別れ防止 */
             .message-lead { font-size: 1.15rem; margin-bottom: 40px; padding: 0 20px; line-height: 1.8; }
             .message-p { line-height: 2.2; font-size: 0.95rem; }
 
@@ -351,7 +348,7 @@
     <header class="site-header">
         <a href="#" class="logo">CHIHIRO OGUSU</a>
         <nav class="nav-desktop">
-            <a href="#news">News</a>
+            <a href="#journal">Journal</a>
             <a href="#about">About</a>
             <a href="#service">Service</a>
             <a href="#voice">Voice</a>
@@ -363,7 +360,7 @@
     </header>
 
     <div class="nav-mobile" id="nav-mobile">
-        <a href="#news">News</a>
+        <a href="#journal">Journal</a>
         <a href="#about">About</a>
         <a href="#service">Service</a>
         <a href="#voice">Voice</a>
@@ -381,10 +378,14 @@
         </div>
     </section>
 
-    <section id="news" class="container fade">
-        <p class="section-title">News</p>
-        <div class="news-item"><span>2025.10.26</span><span>11/15〜11/17 ワークショップを開催いたします。</span></div>
-        <div class="news-item"><span>2025.09.01</span><span>ホームページを開設いたしました。</span></div>
+    <section id="journal" class="container fade">
+        <p class="section-title">Journal</p>
+        <div id="note-container">
+            <p style="font-size: 0.8rem; color: var(--sub-text);">Loading thoughts...</p>
+        </div>
+        <div style="margin-top: 30px;">
+            <a href="https://note.com/18_lug" target="_blank" rel="noopener noreferrer" class="sns-item" style="font-size: 0.8rem; text-decoration: underline;">すべての記事を読む →</a>
+        </div>
     </section>
 
     <section class="message">
@@ -635,7 +636,7 @@
     <footer>
         <a href="#" class="logo footer-logo">CHIHIRO OGUSU</a>
         <nav class="footer-nav">
-            <a href="#news">News</a>
+            <a href="#journal">Journal</a>
             <a href="#about">About</a>
             <a href="#service">Service</a>
             <a href="#voice">Voice</a>
@@ -645,6 +646,39 @@
     </footer>
 
     <script>
+        // --- Note RSS Fetch System ---
+        async function fetchNoteRSS() {
+            const rssUrl = 'https://note.com/18_lug/rss';
+            const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+            try {
+                const response = await fetch(proxyUrl);
+                const data = await response.json();
+
+                if (data.status === 'ok') {
+                    const container = document.getElementById('note-container');
+                    container.innerHTML = ''; 
+
+                    data.items.slice(0, 3).forEach(item => {
+                        const date = new Date(item.pubDate);
+                        const dateString = `${date.getFullYear()}.${('0' + (date.getMonth() + 1)).slice(-2)}.${('0' + date.getDate()).slice(-2)}`;
+
+                        const article = document.createElement('div');
+                        article.className = 'news-item';
+                        article.innerHTML = `
+                            <span>${dateString}</span>
+                            <span><a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a></span>
+                        `;
+                        container.appendChild(article);
+                    });
+                }
+            } catch (error) {
+                console.error('Noteの取得に失敗しました:', error);
+                document.getElementById('note-container').innerHTML = '<p style="font-size: 0.8rem;">現在、記事の読み込みができません。</p>';
+            }
+        }
+        window.addEventListener('DOMContentLoaded', fetchNoteRSS);
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
         }, { threshold: 0.1 });
