@@ -161,7 +161,6 @@
             width: 100%;
             height: 100%;
             z-index: 0;
-            /* スクロールを許可 */
             touch-action: pan-y;
         }
         .hero-content { position: relative; z-index: 1; text-align: center; width: 100%; pointer-events: none; }
@@ -227,15 +226,46 @@
         .keep-together { display: inline-block; white-space: nowrap; }
         .message-p { max-width: 800px; margin: 0 auto; font-size: 1.05rem; line-height: 2.8; padding: 0 20px; text-align: left; display: inline-block; }
 
-        /* --- About --- */
+        /* --- About (Refined Layout) --- */
         #about { padding: 150px 0; }
-        .about-layout { display: flex; gap: 60px; align-items: center; margin-bottom: 50px; }
-        .about-image-wrapper { flex: 0 0 320px; }
-        .about-image { width: 100%; height: auto; display: block; filter: grayscale(0.1); border-radius: 2px; }
-        .profile-head { display: flex; align-items: baseline; gap: 20px; margin-bottom: 25px; border-bottom: 1px solid var(--text); padding-bottom: 10px; }
+        .about-layout { 
+            display: flex; 
+            gap: 80px; 
+            align-items: flex-start; /* 写真とテキストの上端を揃える */
+            margin-bottom: 50px; 
+        }
+        .about-image-wrapper { 
+            flex: 0 0 38%; 
+            position: sticky; 
+            top: 120px;
+        }
+        .about-image { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+            filter: grayscale(0.1); 
+            border-radius: 2px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+        }
+        .about-text-wrapper { 
+            flex: 1; 
+            max-width: 520px; 
+        }
+        .profile-head { 
+            display: flex; 
+            align-items: baseline; 
+            gap: 20px; 
+            margin-bottom: 25px; 
+            border-bottom: 1px solid var(--text); 
+            padding-bottom: 10px; 
+            width: fit-content; 
+            padding-right: 20px;
+        }
         .profile-name-jp { font-size: 1.6rem; font-weight: 700; }
         .profile-name-en { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; }
         .profile-sub { font-size: 0.8rem; color: var(--sub-text); margin-bottom: 25px; }
+        .profile-bio p { margin-bottom: 1.5rem; }
+        .profile-bio p:last-child { margin-bottom: 0; }
 
         /* --- Service --- */
         #service { padding: 120px 0; background-color: #fcfcfc; }
@@ -322,11 +352,9 @@
                 max-width: 90%; 
                 margin: 0 auto; 
                 word-break: keep-all;
-                /* 日本語メッセージの行間を微調整 */
                 line-height: 1.8; 
             }
             .hero-sub-copy { 
-                /* 英語メッセージを日本語に近づける */
                 margin-top: 1.5rem !important;
                 font-size: 1.0rem; 
                 padding: 0 15px; 
@@ -344,8 +372,8 @@
             .message-p { line-height: 2.2; font-size: 0.95rem; }
 
             .about-layout { flex-direction: column; gap: 30px; }
-            .about-image-wrapper { width: 100%; }
-            .profile-head { flex-direction: column; align-items: flex-start; gap: 5px; }
+            .about-image-wrapper { width: 100%; position: static; }
+            .profile-head { flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; }
             .voice-slider-wrapper { padding: 0 15px; }
             .voice-card { flex: 0 0 88%; padding: 35px 25px; min-height: 420px; }
             .slider-btn { display: none; }
@@ -414,6 +442,9 @@
                 そこで、世界のために使ってほしい。<br>
                 それが、自分にやさしくするということ。<br>
                 それが、人と世界と、深くつながる方法だとわたしは信じています。<br><br>
+                濁った音があるからこそ響き、遠くに届いてゆく。<br>
+                綺麗な音だけでは、こじんまりしてしまう。<br>
+                音がぶつかり、混ざり合うからこそ、人生に不思議な深みが生まれる。<br><br>
                 人間だからといって、驕りたくない。<br>
                 わたしたちも地球の一部です。<br>
                 やさしくて、まあるい世界のために。<br>
@@ -426,7 +457,7 @@
     <section id="about" class="container">
         <div class="about-layout">
             <div class="about-image-wrapper fade">
-                <img src="profile.jpg" alt="小楠 千尋" class="about-image" style="width: 100%; height: auto;">
+                <img src="profile.jpg" alt="小楠 千尋" class="about-image">
             </div>
             <div class="about-text-wrapper">
                 <div class="profile-head fade">
@@ -435,8 +466,9 @@
                 </div>
                 <p class="profile-sub fade">1989.07.18 / 静岡県浜松市出身</p>
                 <div class="profile-bio fade">
-                    <p>東京音楽大学およびイタリア・ドニゼッティ音楽院でファゴットを学ぶ。約10年間にわたり、国内外で演奏・指導に携わる。</p>
-                    <p style="margin-top: 1.5rem;">2018年にCo-Active®コーチングに出会い、自分の人生で言葉になっていなかったものに名前がつく体験を経て開業。2025年、本業として独立。演奏家としての「聴く」力と、地域活動で培った「伴走」の精神で、クライアントの人生の調律を行う。</p>
+                    <p>9歳で管楽器に出会い、息が音になる面白さを知る。さらに合奏を通じて、異なる音がひとつの曲になる感動だけでなく、ぶつかる音があるからこそ生まれる深みの虜になる。</p>
+                    <p>東京音楽大学、イタリア・ドニゼッティ音楽院にてファゴットを学び、国内外で演奏・指導に携わる。しかし、研鑽の中で自分が擦り減ってゆく経験を味わい、一度楽器を手放し歩みを止める。</p>
+                    <p>2018年にCo-Active®コーチングに出会い、自分の人生で言葉になっていなかったものに名前がつく体験を経て開業。2025年、本業として独立。演奏家としての「聴く」力と、地域活動で培った「伴走」の精神で、クライアントの人生の調律を行う。</p>
                 </div>
             </div>
         </div>
