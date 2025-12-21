@@ -224,14 +224,14 @@
             text-align: center;
         }
         .keep-together { display: inline-block; white-space: nowrap; }
-        .message-p { max-width: 800px; margin: 0 auto; font-size: 1.05rem; line-height: 2.8; padding: 0 20px; text-align: left; display: inline-block; }
+        .message-p { max-width: 800px; margin: 0 auto; font-size: 1.05rem; line-height: 2.8; padding: 0 20px; text-align: center; display: inline-block; }
 
-        /* --- About (Refined Layout) --- */
+        /* --- About --- */
         #about { padding: 150px 0; }
         .about-layout { 
             display: flex; 
             gap: 80px; 
-            align-items: flex-start; /* 写真とテキストの上端を揃える */
+            align-items: flex-start; 
             margin-bottom: 50px; 
         }
         .about-image-wrapper { 
@@ -249,7 +249,7 @@
         }
         .about-text-wrapper { 
             flex: 1; 
-            max-width: 520px; 
+            max-width: 550px;
         }
         .profile-head { 
             display: flex; 
@@ -267,7 +267,10 @@
         .profile-bio p { margin-bottom: 1.5rem; }
         .profile-bio p:last-child { margin-bottom: 0; }
 
-        /* --- Service --- */
+        /* PC版専用の改行制御 */
+        .pc-only { display: inline; }
+
+        /* --- Service, Voice, Contact etc. --- */
         #service { padding: 120px 0; background-color: #fcfcfc; }
         .service-category-title { font-size: 0.85rem; color: var(--accent); margin: 60px 0 30px; letter-spacing: 0.3em; border-left: 3px solid var(--accent); padding-left: 15px; }
         details { margin-bottom: 25px; border: 1px solid var(--line); border-radius: 2px; background: white; transition: 0.3s; }
@@ -281,7 +284,6 @@
         .service-cta { display: inline-block; margin-top: 25px; padding: 12px 24px; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.1em; transition: 0.3s; border-radius: 2px; }
         .service-cta:hover { background: var(--accent); color: white; }
 
-        /* --- Voice Slider --- */
         #voice { padding: 150px 0; background-color: var(--text); color: white; overflow: hidden; }
         .voice-slider-wrapper { position: relative; width: 100%; max-width: 1200px; margin: 60px auto 0; padding: 0 60px; }
         .voice-slider { display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 20px 0; }
@@ -296,7 +298,6 @@
         .slider-btn.next { right: 0; }
         .slider-btn.hidden { opacity: 0; visibility: hidden; }
 
-        /* --- Contact --- */
         #contact { position: relative; padding: 120px 0 150px; background: #ffffff; overflow: hidden; }
         #contactCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
         #contact .container { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
@@ -313,7 +314,6 @@
         .sns-item { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--sub-text); text-decoration: none; letter-spacing: 0.2em; font-size: 0.9rem; transition: 0.3s; }
         .sns-item:hover { color: var(--accent); }
 
-        /* --- Footer --- */
         footer { padding: 100px 0 60px; text-align: center; border-top: 1px solid var(--line); background-color: #fff; }
         .footer-logo { display: block; margin-bottom: 30px; }
         .footer-nav { display: flex; justify-content: center; gap: 25px; margin-bottom: 40px; flex-wrap: wrap; }
@@ -321,7 +321,6 @@
         .footer-nav a:hover { color: var(--accent); }
         .copyright { font-size: 0.7rem; color: #999; font-family: 'Cormorant Garamond', serif; }
 
-        /* --- Modal --- */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 252, 248, 0.85); display: flex; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(8px); opacity: 0; pointer-events: none; transition: opacity 0.8s ease; }
         .modal-overlay.is-visible { opacity: 1; pointer-events: auto; }
         .modal-content { background: white; width: 90%; max-width: 640px; max-height: 80vh; padding: 60px 50px; position: relative; overflow-y: auto; box-shadow: 0 20px 60px rgba(142, 126, 106, 0.1); border-radius: 4px; transform: translateY(30px); transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -344,6 +343,14 @@
             .logo { font-size: 1.0rem; letter-spacing: 0.15em; }
             .nav-desktop { display: none; }
             .nav-toggle { display: flex; }
+
+            /* スマホ版ではPC用の強制改行を無効化し、言葉の保持設定も解除する */
+            .pc-only { display: none !important; }
+            .keep-together { 
+                white-space: normal !important; 
+                display: inline !important; 
+                word-break: break-all;
+            }
             
             .hero-copy-part { 
                 font-size: 1.6rem; 
@@ -361,19 +368,17 @@
                 line-height: 1.6; 
                 opacity: 0.9;
             }
-            .hero-sub-copy span { white-space: normal; display: inline; }
 
             #journal { padding: 60px 0 40px; }
             .news-item { flex-direction: column; gap: 0; padding: 12px 0; line-height: 1.4; }
-            .news-item span:first-child { flex: none; width: auto; font-size: 0.75rem; margin-bottom: 4px; opacity: 0.8; }
-            .news-item span:last-child { flex: none; font-size: 0.85rem; line-height: 1.6; word-break: break-all; }
-
             .message-lead { font-size: 1.15rem; margin-bottom: 40px; padding: 0 20px; line-height: 1.8; }
-            .message-p { line-height: 2.2; font-size: 0.95rem; }
+            .message-p { line-height: 2.2; font-size: 0.95rem; width: 100%; max-width: 100%; }
 
             .about-layout { flex-direction: column; gap: 30px; }
             .about-image-wrapper { width: 100%; position: static; }
             .profile-head { flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; }
+            .profile-bio p { line-height: 2.0; font-size: 0.95rem; text-align: left; width: 100%; max-width: 100%; }
+
             .voice-slider-wrapper { padding: 0 15px; }
             .voice-card { flex: 0 0 88%; padding: 35px 25px; min-height: 420px; }
             .slider-btn { display: none; }
@@ -433,23 +438,12 @@
                 <span class="keep-together">いつも、なきものに</span><span class="keep-together">していませんか？</span>
             </p>
             <div class="message-p fade">
-				他の誰でもないあなただけが聴くことのできる、大切な音。<br>
-                声も、感情も、感性も。あなたが聴かなければ、それはどこにも届きません。<br><br>
-                自分の声に従って生きる。それは、時に険しい道かもしれません。<br>
-				でも、その険しさの先に、どんな世界が待っているのでしょうか。<br>
-				わたしたちコーチは、それを共に歩む、パートナーです。<br><br>
-                あなたらしさを存分に、ご自身と、大切な人のために。<br>
-                そこで、世界のために使ってほしい。<br>
-                それが、自分にやさしくするということ。<br>
-                それが、人と世界と、深くつながる方法だとわたしは信じています。<br><br>
-                濁った音があるからこそ響き、遠くに届いてゆく。<br>
-                綺麗な音だけでは、こじんまりしてしまう。<br>
-                音がぶつかり、混ざり合うからこそ、人生に不思議な深みが生まれる。<br><br>
-                人間だからといって、驕りたくない。<br>
-                わたしたちも地球の一部です。<br>
-                やさしくて、まあるい世界のために。<br>
-                どうか、まずは、あなたが自分を大切に扱ってください。<br><br>
-				わたしは、あなたの本当の音を、共に奏でる人です。
+                <span class="keep-together">綺麗な音だけでは、こじんまりしてしまう。</span><br class="pc-only">
+                <span class="keep-together">音がぶつかり、混ざり合うからこそ、人生に不思議な深みが生まれる。</span><br><br>
+                <span class="keep-together">自分を大切に扱うことは、</span><br class="pc-only">
+                <span class="keep-together">人と世界と、深くつながる方法だと信じています。</span><br><br>
+                <span class="keep-together">険しい道の先にある、あなただけの響き。</span><br class="pc-only">
+                <span class="keep-together">その「序曲」を、ここから共に。</span>
             </div>
         </div>
     </section>
@@ -466,9 +460,22 @@
                 </div>
                 <p class="profile-sub fade">1989.07.18 / 静岡県浜松市出身</p>
                 <div class="profile-bio fade">
-                    <p>9歳で管楽器に出会い、息が音になる面白さを知る。さらに合奏を通じて、異なる音がひとつの曲になる感動だけでなく、ぶつかる音があるからこそ生まれる深みの虜になる。</p>
-                    <p>東京音楽大学、イタリア・ドニゼッティ音楽院にてファゴットを学び、国内外で演奏・指導に携わる。しかし、研鑽の中で自分が擦り減ってゆく経験を味わい、一度楽器を手放し歩みを止める。</p>
-                    <p>2018年にCo-Active®コーチングに出会い、自分の人生で言葉になっていなかったものに名前がつく体験を経て開業。2025年、本業として独立。演奏家としての「聴く」力と、地域活動で培った「伴走」の精神で、クライアントの人生の調律を行う。</p>
+                    <p>
+                        <span class="keep-together">9歳で管楽器に出会い、息が音になる面白さを知る。さらに合奏を</span><br class="pc-only">
+                        <span class="keep-together">通じて、異なる音がひとつの曲になる感動だけでなく、ぶつか</span><br class="pc-only">
+                        <span class="keep-together">る音があるからこそ生まれる深みの虜になる。</span>
+                    </p>
+                    <p>
+                        <span class="keep-together">東京音楽大学、イタリア・ドニゼッティ音楽院にてファゴットを</span><br class="pc-only">
+                        <span class="keep-together">学び、国内外で演奏・指導に携わる。しかし、研鑽の中で自分が</span><br class="pc-only">
+                        <span class="keep-together">擦り減ってゆく経験を味わい、一度楽器を手放し歩みを止める。</span>
+                    </p>
+                    <p>
+                        <span class="keep-together">2018年にCo-Active®コーチングに出会い、自分の人生で言葉に</span><br class="pc-only">
+                        <span class="keep-together">なっていなかったものに名前がつく体験を経て開業。2025年、本</span><br class="pc-only">
+                        <span class="keep-together">業として独立。演奏家としての「聴く」力と、地域活動で培った</span><br class="pc-only">
+                        <span class="keep-together">「伴走」の精神で、クライアントの人生の調律を行う。</span>
+                    </p>
                 </div>
             </div>
         </div>
