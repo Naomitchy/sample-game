@@ -207,7 +207,6 @@
             font-family: 'Zen Kaku Gothic New', sans-serif; 
             font-size: 0.9rem; 
         }
-        /* PC用: 日付を左、タイトルを右に配置 */
         .news-item span:first-child { flex: 0 0 120px; color: var(--accent); font-size: 0.8rem; letter-spacing: 0.05em; }
         .news-item span:last-child { flex: 1; line-height: 1.8; color: var(--sub-text); }
         .news-item a { text-decoration: none; color: inherit; transition: 0.3s; }
@@ -250,7 +249,7 @@
         }
         .about-text-wrapper { 
             flex: 1; 
-            max-width: 550px;
+            max-width: 520px; 
         }
         .profile-head { 
             display: flex; 
@@ -268,7 +267,7 @@
         .profile-bio p { margin-bottom: 1.5rem; }
         .profile-bio p:last-child { margin-bottom: 0; }
 
-        /* PC版専用の改行制御 */
+        /* PC版専用の改行制御クラス */
         .pc-only { display: inline; }
 
         /* --- Service --- */
@@ -340,7 +339,8 @@
         /* --- Mobile Responsive --- */
         @media (max-width: 850px) {
             body { 
-                word-break: keep-all;
+                /* 修正：keep-allを止め、日本語としての自然な改行を許可 */
+                word-break: normal; 
                 overflow-wrap: anywhere; 
             }
             .container { padding: 0 24px !important; }
@@ -349,12 +349,10 @@
             .nav-desktop { display: none; }
             .nav-toggle { display: flex; }
 
-            /* スマホ版ではPC用の強制改行を無効化し、言葉の保持設定も解除する */
             .pc-only { display: none !important; }
             .keep-together { 
                 white-space: normal !important; 
                 display: inline !important; 
-                word-break: break-all;
             }
             
             .hero-copy-part { 
@@ -363,7 +361,7 @@
                 white-space: normal;
                 max-width: 90%; 
                 margin: 0 auto; 
-                word-break: keep-all;
+                word-break: normal;
                 line-height: 1.8; 
             }
             .hero-sub-copy { 
@@ -373,39 +371,41 @@
                 line-height: 1.6; 
                 opacity: 0.9;
             }
+            .hero-sub-copy span { white-space: normal; display: inline; }
 
             #journal { padding: 60px 0 40px; }
-            
-            /* Journal items mobile: タイトルが上、日付が下。間隔を詰める。 */
+
             .news-item { 
                 flex-direction: column; 
-                gap: 2px; 
-                padding: 12px 0; 
-                line-height: 1.3; 
+                gap: 4px; 
+                padding: 15px 0; 
             }
-            .news-item span:first-child { /* Date */
+            .news-item span:first-child { 
                 order: 2;
                 flex: none; 
                 width: auto; 
-                font-size: 0.75rem; 
-                opacity: 0.8; 
-                margin-top: 2px;
+                font-size: 0.7rem; 
+                opacity: 0.7;
             }
-            .news-item span:last-child { /* Title */
+            .news-item span:last-child { 
                 order: 1;
                 flex: none; 
                 font-size: 0.85rem; 
-                line-height: 1.4; 
-                word-break: break-all; 
+                line-height: 1.4;
             }
 
-            .message-lead { font-size: 1.15rem; margin-bottom: 40px; padding: 0 20px; line-height: 1.8; }
-            .message-p { line-height: 2.2; font-size: 0.95rem; width: 100%; max-width: 100%; }
+            .message-lead { font-size: 1.0rem; margin-bottom: 35px; padding: 0 15px; line-height: 1.7; }
+            .message-p { font-size: 0.9rem; line-height: 2.0; display: block; text-align: center; padding: 0; }
 
             .about-layout { flex-direction: column; gap: 30px; }
             .about-image-wrapper { width: 100%; position: static; }
             .profile-head { flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; }
-            .profile-bio p { line-height: 2.0; font-size: 0.95rem; text-align: left; width: 100%; max-width: 100%; }
+            .profile-bio p { 
+                font-size: 0.85rem; 
+                line-height: 1.8; 
+                text-align: left; 
+                word-break: normal; /* 泣き別れ防止の核心 */
+            }
 
             .voice-slider-wrapper { padding: 0 15px; }
             .voice-card { flex: 0 0 88%; padding: 35px 25px; min-height: 420px; }
@@ -460,17 +460,17 @@
     </section>
 
     <section class="message">
-        <div class="container" style="text-align: center;">
+        <div class="container">
             <p class="message-lead fade">
                 <span class="keep-together">あなたの内側にあるもの。</span><br>
                 <span class="keep-together">いつも、なきものに</span><span class="keep-together">していませんか？</span>
             </p>
             <div class="message-p fade">
-                <span class="keep-together">綺麗な音だけでは、こじんまりしてしまう。</span><br class="pc-only">
+				<span class="keep-together">綺麗な音だけでは、こじんまりしてしまう。</span><br class="pc-only">
                 <span class="keep-together">音がぶつかり、混ざり合うからこそ、人生に不思議な深みが生まれる。</span><br><br>
                 <span class="keep-together">自分を大切に扱うことは、</span><br class="pc-only">
-                <span class="keep-together">人と世界と、深くつながる方法だと信じています。</span><br><br>
-                <span class="keep-together">険しい道の先にある、あなただけの響き。</span><br class="pc-only">
+				<span class="keep-together">人と世界と、深くつながる方法だと信じています。</span><br><br>
+				<span class="keep-together">険しい道の先にある、あなただけの響き。</span><br class="pc-only">
                 <span class="keep-together">その「序曲」を、ここから共に。</span>
             </div>
         </div>
@@ -490,8 +490,8 @@
                 <div class="profile-bio fade">
                     <p>
                         <span class="keep-together">9歳で管楽器に出会い、息が音になる面白さを知る。さらに合奏を</span><br class="pc-only">
-                        <span class="keep-together">通じて、異なる音がひとつの曲になる感動だけでなく、ぶつか</span><br class="pc-only">
-                        <span class="keep-together">る音があるからこそ生まれる深みの虜になる。</span>
+                        <span class="keep-together">通じて、異なる音がひとつの曲になる感動だけで</span><br class="pc-only">
+                        <span class="keep-together">なく、ぶつかる音があるからこそ生まれる深みの虜になる。</span>
                     </p>
                     <p>
                         <span class="keep-together">東京音楽大学、イタリア・ドニゼッティ音楽院にてファゴットを</span><br class="pc-only">
@@ -742,7 +742,6 @@
 
                         const article = document.createElement('div');
                         article.className = 'news-item';
-                        /* PC版に合わせてHTML構造を修正: 1番目が日付、2番目がタイトル */
                         article.innerHTML = `
                             <span>${dateString}</span>
                             <span><a href="${item.link}" target="_blank" rel="noopener noreferrer">${item.title}</a></span>
