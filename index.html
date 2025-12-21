@@ -214,6 +214,11 @@
 
         /* --- Message --- */
         .message { padding: 150px 0; text-align: center; background: #fafafa; }
+        
+        /* 改行制御用クラス */
+        .pc-br { display: block; }
+        .sp-br { display: none; }
+
         .message-lead {
             display: block;
             font-size: 1.3rem;
@@ -223,8 +228,21 @@
             line-height: 2.0;
             text-align: center;
         }
-        .keep-together { display: inline-block; white-space: nowrap; }
-        .message-p { max-width: 800px; margin: 0 auto; font-size: 1.05rem; line-height: 2.8; padding: 0 20px; text-align: center; display: inline-block; }
+        
+        /* 1行を絶対に維持する設定 */
+        .keep-line { 
+            display: inline-block; 
+            white-space: nowrap; 
+        }
+
+        .message-p { 
+            max-width: 800px; 
+            margin: 0 auto; 
+            font-size: 1.05rem; 
+            line-height: 2.8; 
+            padding: 0 20px; 
+            text-align: center; 
+        }
 
         /* --- About --- */
         #about { padding: 150px 0; }
@@ -266,9 +284,6 @@
         .profile-sub { font-size: 0.8rem; color: var(--sub-text); margin-bottom: 25px; }
         .profile-bio p { margin-bottom: 1.5rem; }
         .profile-bio p:last-child { margin-bottom: 0; }
-
-        /* PC版専用の改行制御クラス */
-        .pc-only { display: inline; }
 
         /* --- Service --- */
         #service { padding: 120px 0; background-color: #fcfcfc; }
@@ -339,7 +354,6 @@
         /* --- Mobile Responsive --- */
         @media (max-width: 850px) {
             body { 
-                /* 修正：keep-allを止め、日本語としての自然な改行を許可 */
                 word-break: normal; 
                 overflow-wrap: anywhere; 
             }
@@ -349,12 +363,15 @@
             .nav-desktop { display: none; }
             .nav-toggle { display: flex; }
 
-            .pc-only { display: none !important; }
-            .keep-together { 
-                white-space: normal !important; 
-                display: inline !important; 
+            /* 改行の切り替え */
+            .pc-br { display: none; }
+            .sp-br { display: block; }
+
+            /* スマホで1行を死守するための文字サイズ調整 */
+            .keep-line { 
+                font-size: clamp(0.7rem, 3.8vw, 0.95rem); 
             }
-            
+
             .hero-copy-part { 
                 font-size: 1.6rem; 
                 letter-spacing: 0.2em; 
@@ -371,7 +388,6 @@
                 line-height: 1.6; 
                 opacity: 0.9;
             }
-            .hero-sub-copy span { white-space: normal; display: inline; }
 
             #journal { padding: 60px 0 40px; }
 
@@ -395,7 +411,7 @@
             }
 
             .message-lead { font-size: 1.0rem; margin-bottom: 35px; padding: 0 15px; line-height: 1.7; }
-            .message-p { font-size: 0.9rem; line-height: 2.0; display: block; text-align: center; padding: 0; }
+            .message-p { font-size: 0.9rem; line-height: 2.2; display: block; text-align: center; padding: 0; }
 
             .about-layout { flex-direction: column; gap: 30px; }
             .about-image-wrapper { width: 100%; position: static; }
@@ -404,7 +420,7 @@
                 font-size: 0.85rem; 
                 line-height: 1.8; 
                 text-align: left; 
-                word-break: normal; /* 泣き別れ防止の核心 */
+                word-break: normal; 
             }
 
             .voice-slider-wrapper { padding: 0 15px; }
@@ -441,8 +457,8 @@
     <section class="hero-section">
         <canvas id="rainCanvas"></canvas>
         <div class="hero-content">
-            <span class="hero-copy-part fade"><span class="keep-together">おかえりなさい、</span></span>
-            <span class="hero-copy-part fade fade-delay"><span class="keep-together">あなたの命の音。</span></span>
+            <span class="hero-copy-part fade">おかえりなさい、</span>
+            <span class="hero-copy-part fade fade-delay">あなたの命の音。</span>
             <p class="hero-sub-copy fade fade-delay-2">
                 The overture to your authentic life begins here.
             </p>
@@ -462,16 +478,20 @@
     <section class="message">
         <div class="container">
             <p class="message-lead fade">
-                <span class="keep-together">あなたの内側にあるもの。</span><br>
-                <span class="keep-together">いつも、なきものに</span><span class="keep-together">していませんか？</span>
+                <span class="keep-line">あなたの内側にあるもの。</span><br class="sp-br">
+                <span class="keep-line">なきものにしていませんか？</span>
             </p>
             <div class="message-p fade">
-				<span class="keep-together">綺麗な音だけでは、こじんまりしてしまう。</span><br class="pc-only">
-                <span class="keep-together">音がぶつかり、混ざり合うからこそ、人生に不思議な深みが生まれる。</span><br><br>
-                <span class="keep-together">自分を大切に扱うことは、</span><br class="pc-only">
-				<span class="keep-together">人と世界と、深くつながる方法だと信じています。</span><br><br>
-				<span class="keep-together">険しい道の先にある、あなただけの響き。</span><br class="pc-only">
-                <span class="keep-together">その「序曲」を、ここから共に。</span>
+                <span class="keep-line">綺麗な音だけでは、こじんまりしてしまう。</span><br>
+                <span class="keep-line">音がぶつかり、混ざり合うからこそ、</span><br class="sp-br">
+                <span class="keep-line">人生に不思議な深みが生まれる。</span><br><br>
+                
+                <span class="keep-line">自分を大切に扱うことは、</span><br class="pc-br">
+                <span class="keep-line">人と世界と、</span><br class="sp-br">
+                <span class="keep-line">深くつながる方法だと信じています。</span><br><br>
+                
+                <span class="keep-line">険しい道の先にある、あなただけの響き。</span><br>
+                <span class="keep-line">その「序曲」を、ここから共に。</span>
             </div>
         </div>
     </section>
@@ -489,20 +509,13 @@
                 <p class="profile-sub fade">1989.07.18 / 静岡県浜松市出身</p>
                 <div class="profile-bio fade">
                     <p>
-                        <span class="keep-together">9歳で管楽器に出会い、息が音になる面白さを知る。さらに合奏を</span><br class="pc-only">
-                        <span class="keep-together">通じて、異なる音がひとつの曲になる感動だけで</span><br class="pc-only">
-                        <span class="keep-together">なく、ぶつかる音があるからこそ生まれる深みの虜になる。</span>
+                        9歳で管楽器に出会い、息が音になる面白さを知る。さらに合奏を通じて、異なる音がひとつの曲になる感動だけでなく、ぶつかる音があるからこそ生まれる深みの虜になる。
                     </p>
                     <p>
-                        <span class="keep-together">東京音楽大学、イタリア・ドニゼッティ音楽院にてファゴットを</span><br class="pc-only">
-                        <span class="keep-together">学び、国内外で演奏・指導に携わる。しかし、研鑽の中で自分が</span><br class="pc-only">
-                        <span class="keep-together">擦り減ってゆく経験を味わい、一度楽器を手放し歩みを止める。</span>
+                        東京音楽大学、イタリア・ドニゼッティ音楽院にてファゴットを学び、国内外で演奏・指導に携わる。しかし、研鑽の中で自分が擦り減ってゆく経験を味わい、一度楽器を手放し歩みを止める。
                     </p>
                     <p>
-                        <span class="keep-together">2018年にCo-Active®コーチングに出会い、自分の人生で言葉に</span><br class="pc-only">
-                        <span class="keep-together">なっていなかったものに名前がつく体験を経て開業。2025年、本</span><br class="pc-only">
-                        <span class="keep-together">業として独立。演奏家としての「聴く」力と、地域活動で培った</span><br class="pc-only">
-                        <span class="keep-together">「伴走」の精神で、クライアントの人生の調律を行う。</span>
+                        2018年にCo-Active®コーチングに出会い、自分の人生で言葉になっていなかったものに名前がつく体験を経て開業。2025年、本業として独立。演奏家としての「聴く」力と、地域活動で培った「伴走」の精神で、クライアントの人生の調律を行う。
                     </p>
                 </div>
             </div>
